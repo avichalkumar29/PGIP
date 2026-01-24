@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Achievements | PGIP NLU Delhi</title>
+    <link rel="icon" href="logoicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- RESET & VARIABLES (White & Maroon Theme) --- */
+        :root {
+            --primary-color: #7a1c22;
+            --accent-glow: #a8242b;
+            --accent-gold: #b3952d; 
+            
+            --text-main: #222222;
+            --text-muted: #555555;
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Outfit', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-main);
+            background-color: #ffffff; 
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- LIQUID BACKGROUND ANIMATION --- */
+        .liquid-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: #ffffff; 
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.12; 
+            animation: floatOrb 20s infinite ease-in-out;
+        }
+
+        .orb-1 { width: 600px; height: 600px; background: #7a1c22; top: -100px; left: -100px; animation-delay: 0s; }
+        .orb-2 { width: 500px; height: 500px; background: #962229; bottom: -50px; right: -100px; animation-delay: -5s; }
+        .orb-3 { width: 300px; height: 300px; background: #7a1c22; top: 40%; left: 40%; animation-delay: -10s; }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- HEADER (UNCHANGED) --- */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 0 40px; height: 90px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(122, 28, 34, 0.1);
+            position: sticky; top: 0; z-index: 1000;
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 15px; }
+        .logo-img { height: 45px; width: auto; margin-top: 6.5px; } 
+        
+        .logo-text {
+            font-family: var(--font-serif); color: var(--primary-color);
+            font-size: 1.25rem; line-height: 1.1; text-transform: uppercase;
+            letter-spacing: 1px; font-weight: 700;
+        }
+
+        nav ul { display: flex; gap: 35px; align-items: center; }
+
+        nav a.nav-link {
+            font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
+            color: var(--text-muted); position: relative; padding: 5px 0;
+        }
+
+        nav a.nav-link:hover { color: var(--primary-color); text-shadow: none; }
+        
+        nav a.nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -2px; left: 50%;
+            background: var(--primary-color); transition: 0.3s; transform: translateX(-50%);
+        }
+        nav a.nav-link:hover::after { width: 100%; }
+
+        .header-actions { display: flex; gap: 15px; align-items: center; }
+
+        .login-btn-pro {
+            display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.75rem;
+            color: var(--primary-color); background: rgba(122, 28, 34, 0.05);
+            border: 1px solid rgba(122, 28, 34, 0.2);
+            padding: 10px 22px; border-radius: 30px; text-transform: uppercase; letter-spacing: 1px;
+            backdrop-filter: blur(4px);
+        }
+
+        .login-btn-pro:hover {
+            background: var(--primary-color); color: #fff; border-color: var(--primary-color);
+            box-shadow: 0 4px 15px rgba(122, 28, 34, 0.2);
+        }
+
+        .login-icon { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2; fill: none; }
+        .hamburger { display: none; }
+        .mobile-actions { display: none; }
+
+        /* --- HERO SECTION --- */
+        .page-hero {
+            padding: 140px 40px 80px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-hero h1 {
+            font-family: var(--font-serif);
+            font-size: 5rem;
+            line-height: 1;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            animation: heroFadeIn 1.5s ease-out;
+        }
+
+        .page-hero p {
+            font-family: var(--font-sans);
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeInUp 1s 0.5s forwards;
+        }
+
+        /* --- STATS STRIP (UPDATED) --- */
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Changed to 2 columns */
+            max-width: 800px; /* Slightly narrower to group them better */
+            margin: 60px auto 100px;
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(122, 28, 34, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            padding: 40px; /* Increased padding */
+            opacity: 0;
+            animation: fadeInUp 1s 0.8s forwards;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .stat-item {
+            text-align: center;
+            border-right: 1px solid rgba(122, 28, 34, 0.1);
+            padding: 0 20px;
+        }
+        .stat-item:last-child { border-right: none; }
+        
+        .stat-number {
+            display: block;
+            font-family: var(--font-sans);
+            font-size: 4.5rem; /* Increased size */
+            font-weight: 800;
+            color: var(--primary-color);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem; /* Increased size */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        /* --- CARD GRID --- */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px 100px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 40px;
+        }
+
+        /* CARD STYLING */
+        .achievement-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 0; 
+            position: relative;
+            opacity: 0;
+            transition: all 0.4s ease-out; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid rgba(122, 28, 34, 0.05);
+            height: 100%;
+        }
+
+        .achievement-card:hover {
+            
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(122, 28, 34, 0.2);
+        }
+
+        /* Inner content */
+        .card-inner {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 40px;
+            height: 100%;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        /* Interactive Spotlight Glow */
+        .achievement-card::before {
+            content: "";
+            position: absolute;
+            height: 100%; width: 100%;
+            top: 0; left: 0;
+            border-radius: 24px;
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y), 
+                rgba(122, 28, 34, 0.06), 
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .achievement-card:hover::before { opacity: 1; }
+
+        /* Card Content Styling */
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(122, 28, 34, 0.05);
+        }
+
+        .icon-box {
+            width: 50px; height: 50px;
+            border-radius: 12px;
+            background: rgba(122, 28, 34, 0.05);
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid rgba(122, 28, 34, 0.1);
+            flex-shrink: 0;
+        }
+        .icon-box svg { width: 24px; height: 24px; stroke: var(--primary-color); }
+
+        .card-title {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin: 0;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .achievement-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 14px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .achievement-list li::before {
+            content: '';
+            position: absolute; left: 0; top: 9px;
+            width: 5px; height: 5px;
+            background: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        .achievement-list li strong {
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        /* Animation State Class */
+        .achievement-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Ensure hover overrides the visible transform */
+        .achievement-card.visible:hover {
+            transform: translateY(-10px);
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes heroFadeIn {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- FOOTER (UNCHANGED) --- */
+        footer { 
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(122, 28, 34, 0.1); 
+            color: var(--text-muted); 
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer-main { padding: 20px 60px; display: flex; justify-content: space-between; align-items: center; }
+        
+        .footer-logos { display: flex; gap: 20px; align-items: center; }
+
+        .footer-logo-item {
+            width: 45px; height: 45px;
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.3s transform;
+        }
+
+        .footer-logo-item img { height: 100%; width: 100%; object-fit: contain; filter: none; }
+        .footer-logo-item:hover { transform: translateY(-5px); }
+        
+        .footer-contact { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+
+        .contact-row { display: flex; align-items: center; gap: 12px; font-size: 0.9rem; transition: 0.3s; justify-content: flex-end; color: var(--text-muted); }
+        
+        .contact-row:hover { color: var(--primary-color); }
+        .contact-icon { stroke: var(--primary-color); width: 18px; height: 18px; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+        /* --- MOBILE --- */
+        @media (max-width: 900px) {
+            .header-actions { display: none; }
+            header { padding: 0 20px; height: 70px; }
+            .logo-img { height: 35px; }
+            .logo-text { font-size: 0.8rem; }
+            
+            .hamburger { display: flex; flex-direction: column; gap: 6px; background: none; border: none; cursor: pointer; }
+            .hamburger span { width: 30px; height: 2px; background: var(--primary-color); }
+
+            nav { display: none; position: absolute; top: 70px; left: 0; width: 100%; background: #fff; padding: 20px; border-bottom: 1px solid rgba(0,0,0,0.1); }
+            nav.active { display: block; }
+            nav ul { flex-direction: column; gap: 15px; }
+            
+            .mobile-actions { display: block; margin-top: 20px; }
+            .mobile-actions .login-btn-pro { justify-content: center; }
+
+            .page-hero h1 { font-size: 3rem; }
+            .stats-strip { grid-template-columns: 1fr; gap: 20px; }
+            .stat-item { border-right: none; border-bottom: 1px solid rgba(122, 28, 34, 0.1); padding-bottom: 20px; }
+            .stat-item:last-child { border-bottom: none; }
+            
+            .achievements-grid { grid-template-columns: 1fr; }
+            
+            .footer-main { flex-direction: column; gap: 30px; text-align: center; }
+            .footer-logos { justify-content: center; }
+            .footer-contact { align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="liquid-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <header>
+        <div class="logo-container">
+            <a href="pgip_home.html"> 
+                <img src="logo.png" alt="NLU Delhi Logo" class="logo-img" onerror="this.style.display='none'">
+            </a>
+            <div class="logo-text">
+                Post Graduate<br>Insolvency Programme
+            </div>
+        </div>
+
+        <button class="hamburger" id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav id="main-nav">
+            <ul>
+                <li><a href="pgip_home.html" class="nav-link">Home</a></li>
+                <li><a href="aboutus.html" class="nav-link">About Us</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <li><a href="PGIP_Brochure_2026.pdf" target="_blank" class="nav-link">Brochure</a></li>
+            </ul>
+            <div class="mobile-actions">
+                 <a href="https://erp.nludelhi.ac.in" target="_blank" class="login-btn-pro">Student Login</a>
+            </div>
+        </nav>
+
+        <div class="header-actions">
+            <a href="https://erp.nludelhi.ac.in" target="_blank" class="login-btn-pro">
+                <svg class="login-icon" viewBox="0 0 24 24">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                Student Login
+            </a>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="hero-title-wrapper">
+            <h1>Excellence<br>Redefined</h1>
+        </div>
+        <p>A showcase of the academic rigor, competitive spirit, and impactful contributions that define the PGIP cohort.</p>
+    </section>
+
+    <div class="container">
+        <div class="stats-strip">
+            <div class="stat-item">
+                <span class="stat-number" data-target="20">0+</span>
+                <span class="stat-label">Publications</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="15">0+</span>
+                <span class="stat-label">Moot Awards</span>
+            </div>
+        </div>
+
+        <div class="achievements-grid">
+
+            <div class="achievement-card">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                        </div>
+                        <h3 class="card-title">International Moot Court</h3>
+                    </div>
+                    <ul class="achievement-list">
+                        <li><strong>Best Memorial, India Rounds</strong> – 59th Philip C. Jessup International Law Moot Court Competition</li>
+                        <li><strong>Qualified for Written Memorial Round</strong> – Nuremberg Moot Court Competition</li>
+                        <li><strong>Researcher (Top 10 Rank)</strong>, UNHCR Public International Law Moot Court</li>
+                        <li><strong>Octa-Finalist</strong>, International Commercial Arbitration Moot (Vis Pre-Moot)</li>
+                        <li><strong>Top 6 Teams Worldwide</strong>, Bucerius International Mediation Competition</li>
+                        <li><strong>Winner (Best Negotiation Plan)</strong>, NLIU International Negotiation Competition</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="achievement-card">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                        </div>
+                        <h3 class="card-title">National Moot Court</h3>
+                    </div>
+                    <ul class="achievement-list">
+                        <li><strong>Octa-Finalist & Second Best Memorial</strong> – K.K. Luthra Memorial National Moot Court Competition</li>
+                        <li><strong>Semi-Finalist & Second Best Memorial</strong> – Pro Bono Enviro National Moot Court Competition</li>
+                        <li><strong>Runner-Up (Best Memorial)</strong> – K.R. Ramamani Memorial National Taxation Moot Court Competition</li>
+                        <li><strong>Qualified Team</strong> – All India Moot Court Competition, Bangalore University</li>
+                        <li><strong>Semi-Finalist and Best Speaker</strong> - Checkmate National Moot Court Competition</li>
+                        <li><strong>Best Memorial</strong> – National Moot Court Competition, Christ University</li>
+                    </ul>
+                </div>
+            </div>
+
+             <div class="achievement-card">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        </div>
+                        <h3 class="card-title">ADR & Negotiation</h3>
+                    </div>
+                    <ul class="achievement-list">
+                        <li><strong>Winner (Best Negotiation Plan)</strong> – NLIU International Negotiation Competition</li>
+                        <li><strong>Top 6 Teams Worldwide</strong> – Bucerius International Mediation Competition, Hamburg</li>
+                        <li><strong>Winner (Best Mediating Pair)</strong> – BUSOL ADR Conclave</li>
+                        <li><strong>Finalist</strong> – Amity National ADR Tournament</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="achievement-card">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                        </div>
+                        <h3 class="card-title">Papers and Book Chapters</h3>
+                    </div>
+                    <ul class="achievement-list">
+                        <li><strong>Shadow Banking in India and China</strong> – RGNUL Financial & Mercantile Law Review</li>
+                        <li><strong>Guardians of Global Order</strong> – Compendium on International, Maritime & Outer Space Law</li>
+                        <li><strong>Indian Space Policy & Regulatory Framework</strong> – Frontiers of International Law</li>
+                        <li><strong>India’s Delusional Disorder</strong> – Social Policy and Sustainability (Bloomsbury)</li>
+                        <li><strong>Exploring Gender Justice</strong> – Gender Equality for a Sustainable Future (Bloomsbury)</li>
+                        <li><strong>Reimagining Prostitution as a Profession</strong> – AIR Journal</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="achievement-card">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                        </div>
+                        <h3 class="card-title">Conference Papers</h3>
+                    </div>
+                    <ul class="achievement-list">
+                        <li><strong>Insolvency of Data-Intensive Firms</strong> – 4th Insolvency Law Academy Conference</li>
+                        <li><strong>Aatmanirbhar Bharat and Divestment</strong> – CARCIL National Conference</li>
+                        <li><strong>Ancient Indian Jurisprudence</strong> – ICHR & Bennett University</li>
+                        <li><strong>From Customary Debt to IBC</strong> – National Conference (GGSIPU)</li>
+                        <li><strong>Indian Knowledge Systems & Diplomacy</strong> – Delhi University Conference</li>
+                        <li><strong>Proposing a Pre-Insolvency Early Warning Framework</strong> – Selected for Corporate and Business Law Journal, Arizona State University</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="achievement-card">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        </div>
+                        <h3 class="card-title">Blog Articles</h3>
+                    </div>
+                    <ul class="achievement-list">
+                        <li><strong>IBC 2.0: Has the 2025 Amendment Fixed...</strong> – LiveLaw</li>
+                        <li><strong>Deciphering the Mediation Settlement Agreement</strong> – TaxGuru</li>
+                        <li><strong>AI-Powered Content Moderation</strong> – TaxGuru</li>
+                        <li><strong>Validity of Unstamped Arbitration Agreements</strong> – Supreme Court Observer</li>
+                        <li><strong>Impact of Trade Unions on Labour in SEZs</strong> – Legal Service India</li>
+                        <li><strong>What is Interim Bail</strong> – Juris Centre</li>
+                    </ul>
+                </div>
+            </div>
+
+             <div class="achievement-card">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                        </div>
+                        <h3 class="card-title">Professional Distinction</h3>
+                    </div>
+                    <ul class="achievement-list">
+                        <li><strong>Recommended Candidate</strong> – Judge Advocate General (JAG) Selection Board</li>
+                        <li><strong>Qualified Research Associate</strong> – High Court of Judicature at Allahabad</li>
+                        <li><strong>Recipient</strong>, EY Spotlight Award for Audit Excellence</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-main">
+            <div class="footer-logos">
+                <div class="footer-logo-item">
+                    <img src="logo.png" alt="Logo 1">
+                </div>
+                <div class="footer-logo-item">
+                    <img src="logo2.jpeg" alt="Logo 2">
+                </div>
+                <div class="footer-logo-item">
+                    <img src="logo3.jpeg" alt="Logo 3">
+                </div>
+            </div>
+
+            <div class="footer-contact">
+                <div class="contact-row">
+                    <span>011 - 40787555</span>
+                    <svg class="contact-icon" viewBox="0 0 24 24">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                </div>
+                <div class="contact-row">
+                    <a href="mailto:pgip.admissions@nludelhi.ac.in">pgip.admissions@nludelhi.ac.in</a>
+                    <svg class="contact-icon" viewBox="0 0 24 24">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                </div>
+                <div class="contact-row">
+                    <span>Sector 14, Dwarka, New Delhi</span>
+                    <svg class="contact-icon" viewBox="0 0 24 24">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; padding: 20px; border-top: 1px solid rgba(122, 28, 34, 0.1); font-size: 0.75rem; letter-spacing: 1px; color: var(--text-muted);">
+            © 2026 National Law University Delhi. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger-btn');
+        const nav = document.getElementById('main-nav');
+
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        const cards = document.querySelectorAll(".achievement-card");
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Scroll Reveal Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // Stagger animation
+                        setTimeout(() => {
+                            entry.target.classList.add("visible");
+                        }, index * 100);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            cards.forEach(card => observer.observe(card));
+
+            // 2. Number Counter Animation for Stats
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const target = +stat.getAttribute('data-target');
+                let count = 0;
+                const inc = target / 50; // Speed
+
+                const updateCount = () => {
+                    count += inc;
+                    if (count < target) {
+                        stat.innerText = Math.ceil(count) + (stat.innerText.includes('%') ? '%' : '+');
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        stat.innerText = target + (stat.innerText.includes('%') ? '%' : '+');
+                    }
+                };
+                updateCount();
+            });
+        });
+
+        // 3. Spotlight Gradient Logic (2D only, no Tilt)
+        document.querySelector(".achievements-grid").onmousemove = e => {
+            for(const card of cards) {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                // Spotlight position
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            };
+        };
+    </script>
+
+</body>
+</html>

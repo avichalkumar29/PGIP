@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | PGIP NLU Delhi</title>
+    <link rel="icon" href="logoicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --primary-color: #7a1c22;
+            --primary-dark: #5a1419;
+            --accent-glow: #a8242b;
+            
+            --text-main: #222222;
+            --text-muted: #555555;
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Outfit', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-main);
+            background-color: #ffffff; 
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- LIQUID BACKGROUND ANIMATION --- */
+        .liquid-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: #ffffff; 
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.12; 
+            animation: floatOrb 20s infinite ease-in-out;
+        }
+
+        .orb-1 { width: 600px; height: 600px; background: #7a1c22; top: -100px; left: -100px; animation-delay: 0s; }
+        .orb-2 { width: 500px; height: 500px; background: #962229; bottom: -50px; right: -100px; animation-delay: -5s; }
+        .orb-3 { width: 300px; height: 300px; background: #7a1c22; top: 40%; left: 40%; animation-delay: -10s; }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- HEADER --- */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 0 40px; height: 90px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(122, 28, 34, 0.1);
+            position: sticky; top: 0; z-index: 1000;
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 15px; }
+        .logo-img { height: 45px; width: auto; margin-top: 6.5px; } 
+        
+        .logo-text {
+            font-family: var(--font-serif); color: var(--primary-color);
+            font-size: 1.25rem; line-height: 1.1; text-transform: uppercase;
+            letter-spacing: 1px; font-weight: 700;
+        }
+
+        nav ul { display: flex; gap: 35px; align-items: center; }
+
+        nav a.nav-link {
+            font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
+            color: var(--text-muted); position: relative; padding: 5px 0;
+        }
+
+        nav a.nav-link:hover { color: var(--primary-color); text-shadow: none; }
+        
+        nav a.nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -2px; left: 50%;
+            background: var(--primary-color); transition: 0.3s; transform: translateX(-50%);
+        }
+        nav a.nav-link:hover::after { width: 100%; }
+
+        .header-actions { display: flex; gap: 15px; align-items: center; }
+
+        .login-btn-pro {
+            display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.75rem;
+            color: var(--primary-color); background: rgba(122, 28, 34, 0.05);
+            border: 1px solid rgba(122, 28, 34, 0.2);
+            padding: 10px 22px; border-radius: 30px; text-transform: uppercase; letter-spacing: 1px;
+            backdrop-filter: blur(4px);
+        }
+
+        .login-btn-pro:hover {
+            background: var(--primary-color); color: #fff; border-color: var(--primary-color);
+            box-shadow: 0 4px 15px rgba(122, 28, 34, 0.2);
+        }
+
+        .login-icon { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2; fill: none; }
+        .hamburger { display: none; }
+        .mobile-actions { display: none; }
+
+        /* --- HERO SECTION --- */
+        .page-hero {
+            padding: 140px 40px 80px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-hero h1 {
+            font-family: var(--font-serif);
+            font-size: 5rem;
+            line-height: 1;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            animation: heroFadeIn 1.5s ease-out;
+        }
+
+        .page-hero p {
+            font-family: var(--font-sans);
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 950px;
+            margin: 0 auto;
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeInUp 1s 0.5s forwards;
+        }
+
+        /* --- NIRF STAT CARD --- */
+        .nirf-container {
+            display: flex;
+            justify-content: center;
+            margin: 60px auto 100px;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .nirf-card {
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(122, 28, 34, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            padding: 60px 100px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            
+            opacity: 0;
+            min-width: 500px;
+        }
+        
+        .nirf-card.visible {
+            animation: fadeInUp 1s forwards;
+        }
+
+        .nirf-number-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            font-family: var(--font-sans);
+            font-weight: 800;
+            font-size: 4.5rem; 
+            color: var(--primary-color);
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+        
+        .nirf-symbol { margin-right: 5px; }
+
+        .nirf-label {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            font-weight: 700;
+            display: block;
+        }
+        
+        .nirf-subcaption {
+            font-family: var(--font-serif);
+            font-style: italic;
+            color: #888;
+            font-size: 0.95rem;
+            margin-top: 8px;
+            display: block;
+        }
+
+        /* --- EXECUTIVE SUMMARY --- */
+        .single-block-container {
+            max-width: 1400px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .executive-summary-card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 30px 90px rgba(0,0,0,0.08);
+            overflow: hidden;
+            position: relative;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        
+        .executive-summary-card.visible { opacity: 1; transform: translateY(0); }
+
+        /* Section 1: Introduction */
+        .es-header-section { 
+            padding: 60px 80px 40px; 
+            text-align: center; 
+            background: radial-gradient(circle at top, rgba(122, 28, 34, 0.02) 0%, transparent 70%);
+        }
+        
+        .es-label {
+            display: inline-block; font-size: 0.8rem; text-transform: uppercase;
+            letter-spacing: 4px; 
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        
+        .es-title { 
+            font-family: var(--font-serif); 
+            font-size: 3.5rem; 
+            color: var(--text-main); 
+            margin-bottom: 35px; 
+            line-height: 1.1; 
+        }
+        
+        .es-intro-text { 
+            font-size: 1.25rem; 
+            line-height: 1.8; 
+            color: var(--text-muted); 
+            max-width: 1300px; 
+            margin: 0 auto; 
+            font-weight: 300;
+        }
+
+        /* Section 2: Highlight Band (COMPACT & CENTERED ALIGNMENT) */
+        .es-highlight-band { 
+            background: linear-gradient(135deg, var(--primary-color), #4a0f13); 
+            color: white; 
+            /* Compact Padding */
+            padding: 50px 60px; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        
+        /* Pattern Overlay */
+        .es-highlight-band::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+        
+        .es-highlight-grid { 
+            display: grid; 
+            /* Text tightly snapped to title */
+            grid-template-columns: auto 1fr; 
+            gap: 50px; 
+            align-items: center; 
+            position: relative; 
+            z-index: 2; 
+        }
+        
+        .es-highlight-left {
+            border-right: 1px solid rgba(255,255,255,0.15);
+            padding-right: 50px; 
+            /* CHANGED: Center Align so "The Initiative" centers over "PGIP" */
+            text-align: center;
+        }
+
+        .es-highlight-title { 
+            font-family: var(--font-serif); 
+            font-size: 5.5rem; 
+            line-height: 0.9; 
+            color: #fff; 
+            font-weight: 800; 
+            letter-spacing: -2px;
+            margin-top: 5px;
+        }
+        
+        .es-highlight-text { 
+            font-size: 1.15rem; 
+            line-height: 1.8; 
+            color: rgba(255,255,255,0.9); 
+            font-weight: 300; 
+        }
+        
+        .es-highlight-text strong { 
+            color: #fff;
+            font-weight: 700; 
+        }
+
+        /* Section 3: Details Grid */
+        .es-details-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            background: #fff;
+        }
+        
+        .es-detail-item { 
+            padding: 60px 50px; 
+            border-right: 1px solid rgba(0,0,0,0.04); 
+            transition: background 0.3s; 
+            position: relative;
+        }
+        .es-detail-item:last-child { border-right: none; }
+        .es-detail-item:hover { background: rgba(122, 28, 34, 0.015); }
+        
+        /* Decorative Icon placeholder - Primary Color */
+        .es-detail-icon {
+            width: 40px; height: 3px; 
+            background: var(--primary-color); 
+            margin-bottom: 25px;
+        }
+
+        .es-detail-label { 
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; 
+            color: var(--text-muted); margin-bottom: 10px; font-weight: 600; display: block; 
+        }
+        .es-detail-title { 
+            font-family: var(--font-serif); font-size: 1.6rem; color: var(--primary-color); 
+            margin-bottom: 20px; line-height: 1.3; 
+        }
+        .es-detail-text { font-size: 1rem; color: var(--text-muted); line-height: 1.7; }
+        .es-detail-text strong { color: var(--primary-color); font-weight: 600; }
+
+        /* --- TEAM GRID & CARDS --- */
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 40px 100px; position: relative; z-index: 1; }
+
+        .section-header-glass {
+            text-align: center; margin: 30px 0 60px; position: relative;
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .section-header-glass.visible { opacity: 1; transform: translateY(0); }
+        .section-header-glass h2 { font-family: var(--font-serif); font-size: 3rem; color: var(--primary-color); display: inline-block; padding-bottom: 20px; }
+        .section-header-glass h2::after { content: ''; display: block; width: 60px; height: 3px; background: var(--primary-color); margin: 15px auto 0; }
+
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-bottom: 80px; }
+
+        .glass-team-card {
+            background: #ffffff; 
+            border: 1px solid rgba(122, 28, 34, 0.05); 
+            border-radius: 24px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03); 
+            padding: 40px 25px; 
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            height: 100%; position: relative; overflow: hidden;
+            
+            opacity: 0; 
+            transition: all 0.4s ease-out;
+            cursor: pointer;
+        }
+        
+        .glass-team-card.visible { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+        
+        .glass-team-card.visible:hover { 
+            transform: translateY(-10px);
+            border-color: var(--primary-color); 
+            box-shadow: 0 0 5px rgba(122, 28, 34, 0.2);
+        }
+
+        /* --- SPOTLIGHT EFFECT --- */
+        .glass-team-card::before {
+            content: "";
+            position: absolute;
+            height: 100%; width: 100%;
+            top: 0; left: 0;
+            border-radius: 24px;
+            background: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(122, 28, 34, 0.06),
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .glass-team-card:hover::before { opacity: 1; }
+
+        .team-img, .team-info { position: relative; z-index: 2; }
+
+        .team-img { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; margin-bottom: 25px; border: 3px solid rgba(122, 28, 34, 0.05); transition: 0.4s ease; }
+        .glass-team-card:hover .team-img { border-color: var(--primary-color); box-shadow: 0 0 5px rgba(122, 28, 34, 0.2); }
+        .team-info h3 { font-family: var(--font-serif); font-size: 1.35rem; margin-bottom: 8px; color: var(--text-main); font-weight: 700; }
+        .role-badge { display: inline-block; color: var(--primary-color); background: rgba(122, 28, 34, 0.06); padding: 4px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; border: 1px solid rgba(122, 28, 34, 0.1); }
+        .team-info p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; font-weight: 400; }
+
+        /* Hidden Bio Container in Card */
+        .bio-source { display: none; }
+
+        /* --- POPUP MODAL STYLES --- */
+        .bio-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .bio-modal-overlay.active { opacity: 1; pointer-events: all; }
+
+        .bio-modal-card {
+            background: #fff;
+            width: 1000px;
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 24px;
+            border: 1px solid rgba(122, 28, 34, 0.1);
+            box-shadow: 0 20px 80px rgba(0,0,0,0.15);
+            padding: 50px;
+            position: relative;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+            align-items: center; 
+        }
+
+        .bio-modal-overlay.active .bio-modal-card { transform: scale(1); }
+
+        /* Profile Section (Left Column) */
+        .modal-profile-section {
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center;
+            width: 100%;
+        }
+
+        .modal-img {
+            width: 200px; height: 200px;
+            border-radius: 50%; object-fit: cover;
+            border: 3px solid var(--primary-color);
+            margin-bottom: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .modal-info h3 { font-family: var(--font-serif); font-size: 2rem; color: var(--primary-color); line-height: 1.2; margin-bottom: 10px; }
+        .modal-info p { color: var(--text-muted); font-size: 1rem; }
+
+        /* Bio Section (Right Column) */
+        .modal-bio-section {
+            width: 100%;
+        }
+
+        /* Justified Text (Preserved) */
+        .bio-text-content {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            text-align: justify; 
+            white-space: normal;
+        }
+
+        .bio-text-content p { margin-bottom: 15px; }
+
+        /* Close Button REMOVED */
+
+        /* --- ANIMATIONS --- */
+        @keyframes heroFadeIn { 0% { opacity: 0; transform: translateY(-30px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+
+        /* --- FOOTER --- */
+        footer { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid rgba(122, 28, 34, 0.1); color: var(--text-muted); position: relative; z-index: 10; }
+        .footer-main { padding: 20px 60px; display: flex; justify-content: space-between; align-items: center; }
+        .footer-logos { display: flex; gap: 20px; align-items: center; }
+        .footer-logo-item { width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; transition: 0.3s transform; }
+        .footer-logo-item img { height: 100%; width: 100%; object-fit: contain; filter: none; }
+        .footer-logo-item:hover { transform: translateY(-5px); }
+        .footer-contact { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+        .contact-row { display: flex; align-items: center; gap: 12px; font-size: 0.9rem; transition: 0.3s; justify-content: flex-end; color: var(--text-muted); }
+        .contact-row:hover { color: var(--primary-color); }
+        .contact-icon { stroke: var(--primary-color); width: 18px; height: 18px; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+        /* --- MOBILE --- */
+        @media (max-width: 900px) {
+            .header-actions { display: none; }
+            header { padding: 0 20px; height: 70px; }
+            .logo-img { height: 35px; } .logo-text { font-size: 0.8rem; }
+            .hamburger { display: flex; flex-direction: column; gap: 6px; background: none; border: none; cursor: pointer; }
+            .hamburger span { width: 30px; height: 2px; background: var(--primary-color); }
+            nav { display: none; position: absolute; top: 70px; left: 0; width: 100%; background: #fff; padding: 20px; border-bottom: 1px solid rgba(0,0,0,0.1); }
+            nav.active { display: block; } nav ul { flex-direction: column; gap: 15px; }
+            .mobile-actions { display: block; margin-top: 20px; } .mobile-actions .login-btn-pro { justify-content: center; }
+
+            .page-hero h1 { font-size: 3rem; } .page-hero p { font-size: 1.1rem; text-align: left; }
+            
+            .nirf-container { margin: 40px auto; padding: 0 20px; }
+            .nirf-card { min-width: auto; width: 100%; padding: 40px 20px; }
+            .nirf-number-wrapper { font-size: 4rem; }
+
+            .es-header-section, .es-highlight-band { padding: 40px 25px; }
+            .es-highlight-grid { grid-template-columns: 1fr; gap: 20px; }
+            .es-highlight-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 25px; padding-right: 0; text-align: left; }
+            .es-details-grid { grid-template-columns: 1fr; }
+            .es-detail-item { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.05); padding: 40px 25px; }
+            .team-grid { grid-template-columns: 1fr; padding: 0 20px; gap: 20px; }
+            .footer-main { flex-direction: column; gap: 30px; text-align: center; }
+            .footer-logos { justify-content: center; } .footer-contact { align-items: center; }
+
+            /* Mobile Modal Adjustments */
+            .bio-modal-card {
+                grid-template-columns: 1fr; /* Stack vertically on mobile */
+                gap: 30px;
+                padding: 30px;
+                height: auto;
+            }
+            .bio-text-content { text-align: left; }
+            .modal-img { width: 150px; height: 150px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="liquid-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <div class="bio-modal-overlay" id="bioModal">
+        <div class="bio-modal-card" id="bioModalCard">
+            <div class="modal-profile-section">
+                <img src="" alt="Profile" class="modal-img" id="modalImg">
+                <div class="modal-info">
+                    <span class="role-badge" id="modalRole" style="display:none;"></span>
+                    <h3 id="modalName">Name</h3>
+                    <p id="modalDesc">Description</p>
+                </div>
+            </div>
+
+            <div class="modal-bio-section">
+                <div class="bio-text-content" id="modalBioText">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <header>
+        <div class="logo-container">
+            <a href="pgip_home.html"> 
+                <img src="logo.png" alt="NLU Delhi Logo" class="logo-img" onerror="this.style.display='none'">
+            </a>
+            <div class="logo-text">
+                Post Graduate<br>Insolvency Programme
+            </div>
+        </div>
+
+        <button class="hamburger" id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav id="main-nav">
+            <ul>
+                <li><a href="pgip_home.html" class="nav-link">Home</a></li>
+                <li><a href="aboutus.html" class="nav-link">About Us</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <li><a href="PGIP_Brochure_2026.pdf" target="_blank" class="nav-link">Brochure</a></li>
+            </ul>
+            <div class="mobile-actions">
+                 <a href="https://erp.nludelhi.ac.in" target="_blank" class="login-btn-pro">Student Login</a>
+            </div>
+        </nav>
+
+        <div class="header-actions">
+            <a href="https://erp.nludelhi.ac.in" target="_blank" class="login-btn-pro">
+                <svg class="login-icon" viewBox="0 0 24 24">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                Student Login
+            </a>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <h1>Institutional Legacy</h1>
+        <p>A vanguard of legal scholarship rooted in the constitutional ethos of justice, cultivating an ecosystem where rigorous academic inquiry meets global professional excellence.</p>
+    </section>
+
+    <div class="nirf-container">
+        <div class="nirf-card">
+            <div class="nirf-number-wrapper">
+                <span class="nirf-symbol">#</span>
+                <span class="stat-number" data-start="9" data-end="2">9</span>
+            </div>
+            <span class="nirf-label">NIRF Law Ranking</span>
+            <span class="nirf-subcaption">Sustained for 8 consecutive years</span>
+        </div>
+    </div>
+
+    <div class="single-block-container">
+        
+        <div class="executive-summary-card">
+            
+            <div class="es-header-section">
+                <span class="es-label">The Foundation</span>
+                <h2 class="es-title">A Centre for Legal Excellence</h2>
+                <div class="es-intro-text">
+                    <p>
+                        National Law University Delhi (NLU Delhi) stands as a premier institution dedicated to the advancement of legal education, research, and public policy. Established with a mandate to foster ethical leadership and social responsibility, the University’s pedagogy seamlessly integrates law with economics, finance, and technology.
+                    </p>
+                </div>
+            </div>
+
+            <div class="es-highlight-band">
+                <div class="es-highlight-grid">
+                    <div class="es-highlight-left">
+                        <span style="color: rgba(255,255,255,0.6); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 10px;">The Initiative</span>
+                        <h2 class="es-highlight-title">PGIP</h2>
+                    </div>
+                    <div class="es-highlight-text">
+                        The PGIP is NLU Delhi’s flagship intervention in the corporate sphere. Conceptualized to bridge the gap between academic theory and the practical exigencies of the <strong>Insolvency and Bankruptcy Code (IBC)</strong>, this programme sits at the critical intersection of law, forensic accounting, and corporate restructuring.
+                    </div>
+                </div>
+            </div>
+
+            <div class="es-details-grid">
+                
+                <div class="es-detail-item">
+                    <div class="es-detail-icon"></div>
+                    <span class="es-detail-label">Academic Framework</span>
+                    <h3 class="es-detail-title">LL.M. / M.A. in Insolvency</h3>
+                    <p class="es-detail-text">
+                        Delivered under the aegis of the <strong>Insolvency and Bankruptcy Board of India (IBBI)</strong>, the curriculum ensures complete alignment with regulatory standards, covering advanced corporate insolvency resolution and distressed asset management.
+                    </p>
+                </div>
+
+                <div class="es-detail-item">
+                    <div class="es-detail-icon"></div>
+                    <span class="es-detail-label">The Cohort</span>
+                    <h3 class="es-detail-title">Cross-Disciplinary Synergy</h3>
+                    <p class="es-detail-text">
+                        The classroom is a melting pot of professional expertise, comprising lawyers, CAs, CSs, and cost accountants. This diversity fosters a collaborative environment where legal interpretation meets financial analysis.
+                    </p>
+                </div>
+
+                <div class="es-detail-item">
+                    <div class="es-detail-icon"></div>
+                    <span class="es-detail-label">The Outcome</span>
+                    <h3 class="es-detail-title">Strategic Leadership</h3>
+                    <p class="es-detail-text">
+                        Utilizing a two-year strategic model with immersive practical training, NLU Delhi nurtures competent, ethical professionals ready to assume leadership roles within regulatory bodies and top-tier law firms.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <main class="container">
+
+        <div class="section-header-glass">
+            <h2>University Leadership</h2>
+        </div>
+
+        <div class="team-grid">
+            <div class="glass-team-card" data-role="Vice Chancellor">
+                <img src="bajpai.jpg" alt="Prof. G.S. Bajpai" class="team-img">
+                <div class="team-info">
+                    <span class="role-badge">Vice Chancellor</span>
+                    <h3>Prof. (Dr.) G. S. Bajpai</h3>
+                    <p>Senior Professor of Criminology & Criminal Justice</p>
+                    <div class="bio-source">
+                        <p>Prof. (Dr.) G.S. Bajpai is a distinguished legal scholar, administrator and educator, currently serving as Vice-Chancellor and Senior Professor at National Law University, Delhi.</p>
+                        <p>With over three decades of experience in teaching, research and academic leadership, he has played an influential role in advancing legal education and criminological inquiry in India.</p>
+                        <p>An expert in criminology, criminal justice, victimology and empirical legal research, Prof. Bajpai holds a doctorate in victimology and completed post-doctoral study as a Commonwealth Fellow at the University of Leicester, UK.</p>
+                        <p>Prior to his current role, he served as Vice-Chancellor of Rajiv Gandhi National University of Law (RGNUL), Punjab, Registrar at NLU Delhi and as Chair Professor at the K.L. Arora Chair in Criminal Law and Chairperson of the Centre for Criminology & Victimology at NLUD. He has authored numerous books, research articles and opinion pieces in leading national dailies, and has been invited as an expert on criminal law and legal education reform by government committees. His scholarship and leadership continue to shape interdisciplinary legal research and institutional excellence.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card" data-role="Registrar">
+                <img src="paul.jpg" alt="Prof. Ruhi Paul" class="team-img">
+                <div class="team-info">
+                    <span class="role-badge">Registrar</span>
+                    <h3>Prof. (Dr.) Ruhi Paul</h3>
+                    <p>Professor of Law, NLU Delhi</p>
+                    <div class="bio-source">
+                        <p>Prof. (Dr.) Ruhi Paul is a distinguished legal academic and administrator at National Law University, Delhi, where she serves as Professor of Law and Registrar.</p>
+                        <p>She is also the Chairholder of the UNESCO Chair for Legal Dimensions of Clean Sports, leading research, teaching and policy engagement on sports law, governance, anti-doping and athlete rights.</p>
+                        <p>With over two decades of experience in teaching, research and institutional leadership, Prof. Paul’s academic expertise lies in Alternative Dispute Resolution (ADR), procedural law and mediation. Her doctoral research on mediation centres in India was among the first of its kind in the country, and she has taught ADR and related subjects at both NLU Delhi and NALSAR University of Law.</p>
+                        <p>Prof. Paul has played a significant role in shaping legal education and policy discourse, including providing expert input to the Parliamentary Standing Committee on the Mediation Bill and contributing to international dispute resolution initiatives. Her work bridges doctrinal insight with practical engagement, enriching both classroom pedagogy and institutional governance.</p>
+                    </div>
+                </div>
+            </div>
+            
+             <div class="glass-team-card" data-role="Programme Chair">
+                <img src="pandey.jpeg" alt="Dr. Raghav Pandey" class="team-img">
+                <div class="team-info">
+                    <span class="role-badge">Programme Chair</span>
+                    <h3>Dr. Raghav Pandey</h3>
+                    <p>Course Director, PGIP</p>
+                    <div class="bio-source">
+                        <p>Dr. Raghav Pandey is an Assistant Professor of Law at National Law University, Delhi, specialising in insolvency law, corporate restructuring and regulatory frameworks.</p>
+                        <p>He holds a Ph.D. in Insolvency Law from the Indian Institute of Technology (IIT) Bombay, an LL.M. from the Indian Law Institute, New Delhi, and an M.A. (Law) from the Tata Institute of Social Sciences.</p>
+                        <p>Before joining NLUD, he taught at Maharashtra National Law University, Mumbai, and has also served as visiting faculty at the Indian Institute of Information Technology, Pune.</p>
+                        <p>Dr. Pandey is the author of The Law of Corporate Insolvency in India: Resolution and Liquidation (Thomson Reuters, 2021) and has published in peer-reviewed journals on topics spanning insolvency, feminist jurisprudence and criminal law. He brings interdisciplinary insight into legal doctrine and policy, enriching both teaching and research. At NLUD, he plays an active role in shaping postgraduate learning and research, including contributions to centres such as the Centre for Regulatory Studies and Centre for Transnational Commercial Law.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header-glass">
+            <h2>Global Advisory Board</h2>
+        </div>
+
+        <div class="team-grid">
+            <div class="glass-team-card" data-role="Chairperson">
+                <img src="kaul.jpeg" alt="Justice Kaul" class="team-img">
+                <div class="team-info">
+                    <span class="role-badge">Chairperson</span>
+                    <h3>Justice S.K. Kaul</h3>
+                    <p>Former Judge, Supreme Court of India</p>
+                    <div class="bio-source">
+                        <p>Justice Sanjay Kishan Kaul is a distinguished jurist and former Judge of the Supreme Court of India, whose legal career spans over four decades.</p>
+                        <p>He earned his LL.B. from the Campus Law Centre, University of Delhi, in 1982 and subsequently enrolled as an Advocate with the Bar Council of Delhi.</p>
+                        <p>Throughout his practice, Justice Kaul appeared extensively in commercial, civil, writ, original and company matters in both the Delhi High Court and the Supreme Court of India.</p>
+                        <p>He served as an Advocate-on-Record at the Supreme Court from 1987 to 1999, was designated a Senior Advocate in 1999, and acted as Senior Counsel for prestigious institutions including the Delhi High Court, Delhi University and the Delhi Development Authority. Elevated to the bench in 2001, he served as a Judge of the Delhi High Court, before becoming Chief Justice of the Punjab and Haryana High Court in 2013 and Chief Justice of the Madras High Court in 2014. In 2017, he was appointed as a Judge of the Supreme Court of India, where he contributed significantly to the jurisprudence on constitutional law, civil liberties, and commercial disputes until his retirement in December 2023. Justice Kaul’s commitment to legal excellence and judicial integrity makes him a valued member of the academic community.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card">
+                <img src="atkins.jpeg" alt="Scott Atkins" class="team-img">
+                <div class="team-info">
+                    <h3>Mr. Scott Atkins</h3>
+                    <p>Global Co-Head, Restructuring, Norton Rose Fulbright</p>
+                    <div class="bio-source">
+                        <p>Mr. Scott Atkins is a globally recognised expert in restructuring and insolvency law, currently serving as the Global Head of Restructuring and Head of Risk Advisory (Australia) at Norton Rose Fulbright.</p>
+                        <p>With close to three decades of experience, he has advised on complex domestic and cross-border restructurings, insolvencies, special situations and bank resolution matters across multiple jurisdictions.</p>
+                        <p>He has played a leading role in shaping international insolvency policy and reform, including as Immediate Past President of INSOL International and as a delegate to UNCITRAL Working Group V on Insolvency, where he represents Australia.</p>
+                        <p>His contributions extend to legislative reform in emerging economies, notably his involvement in drafting Myanmar’s first comprehensive insolvency framework. Mr. Atkins is a Fellow of the American College of Bankruptcy and the Australian Restructuring Insolvency and Turnaround Association, and has been appointed Honorary Professor at the University of Sydney School of Law. A frequent speaker and published author, he brings deep practical insight and global perspective to insolvency and restructuring discourse.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card">
+                <img src="grant.jpeg" alt="David Grant" class="team-img">
+                <div class="team-info">
+                    <h3>Mr. David Grant</h3>
+                    <p>Managing Partner, Troutman Pepper Locke</p>
+                    <div class="bio-source">
+                        <p>Mr. David Grant is an internationally recognised restructuring and insolvency specialist based in London, serving as Partner and London Office Managing Partner at Troutman Pepper Locke LLP.</p>
+                        <p>With over 30 years of experience, he brings deep expertise in complex cross-border asset recovery, insolvency litigation, restructuring and fraud-related investigations.</p>
+                        <p>His practice spans advising insolvency practitioners, banks, directors, trade financiers, distressed debt investors and private equity clients on sophisticated international matters.</p>
+                        <p>Mr. Grant is dual-qualified in England and Wales and in New South Wales, Australia, reflecting his broad jurisdictional reach.</p>
+                        <p>He is known for his strategic commercial acumen and negotiation skills in multi-jurisdiction insolvency and recovery actions, often delivering tailored, practical solutions that maximise value for stakeholders. Among his representative work are mandates involving the collapse of Lehman Brothers International (Europe), complex asset tracing claims, and advisory roles in high-profile restructuring matters. Mr. Grant regularly speaks at industry conferences and contributes to thought leadership on insolvency and cross-border enforcement issues.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card">
+                <img src="suri.jpg" alt="Mamta Suri" class="team-img">
+                <div class="team-info">
+                    <h3>Ms. Mamta Suri</h3>
+                    <p>Former Executive Director, IBBI</p>
+                    <div class="bio-source">
+                        <p>Ms. Mamta Suri is a seasoned regulatory leader and expert in financial sector governance and insolvency frameworks.</p>
+                        <p>She served as the first Executive Director of the Insolvency and Bankruptcy Board of India (IBBI), taking charge on 16 August 2017 and shaping the institution during its formative years as the statutory regulator under the Insolvency and Bankruptcy Code.</p>
+                        <p>Before her tenure at IBBI, Ms. Suri was Chief General Manager at the Insurance Regulatory and Development Authority of India (IRDAI), where she oversaw key functions including finance and investment, compliance, internal audit, risk-based supervision and corporate governance for the insurance sector.</p>
+                        <p>Her leadership spanned registration, monitoring, solvency assessment, mergers and acquisitions, and implementation of advanced regulatory frameworks.</p>
+                        <p>Ms. Suri holds a Ph.D. in Finance from the University of Delhi, an M.Sc. in Insurance Risk and Management from City University, London, and is a Chartered Financial Analyst with a legal background, combining interdisciplinary insight into regulation, risk and insolvency. Her contributions to financial regulation and insolvency governance make her a valuable voice in academic and policy discourse.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card">
+                <img src="gemawat.jpg" alt="Sanjeev Gemawat" class="team-img">
+                <div class="team-info">
+                    <h3>Mr. Sanjeev Gemawat</h3>
+                    <p>Group General Counsel, Vedanta</p>
+                    <div class="bio-source">
+                        <p>Mr. Sanjeev Gemawat is a seasoned corporate legal professional with close to three decades of experience across complex, regulated and capital-intensive sectors including metals and mining, infrastructure, energy, real estate and manufacturing.</p>
+                        <p>He serves as Group General Counsel and Company Secretary at the Essar Group, where he oversees legal strategy, corporate governance, compliance and risk management across global operations.</p>
+                        <p>Over the course of his career, Mr. Gemawat has held senior leadership roles at prominent Indian conglomerates such as Vedanta Resources, Dalmia Bharat Group and DLF.</p>
+                        <p>His practice spans high-stakes litigation and arbitration, mergers and acquisitions, insolvency and restructuring, regulatory advisory and board-level governance, with a strong focus on aligning legal risk with business strategy. Widely recognised for his contributions to the in-house legal ecosystem, Mr. Gemawat has been featured among India’s leading general counsels and company secretaries. His multidisciplinary qualifications, including credentials as a Chartered Accountant, Cost & Management Accountant and Company Secretary, enable him to bring a holistic and commercially grounded perspective to legal education and policy discourse.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card">
+                <img src="dubey.jpeg" alt="Bishwajit Dubey" class="team-img">
+                <div class="team-info">
+                    <h3>Mr. Bishwajit Dubey</h3>
+                    <p>Former Partner, Cyril Amarchand Mangaldas</p>
+                    <div class="bio-source">
+                        <p>Mr. Bishwajit Dubey is a distinguished advocate and legal practitioner with nearly two decades of experience in advisory, litigation and arbitration, particularly in corporate, commercial and insolvency law.</p>
+                        <p>A graduate of the National Law Institute University, Bhopal, he has built a strong reputation for his deep understanding of complex legal issues and strategic advocacy.</p>
+                        <p>In March 2024, Mr. Dubey was appointed as Additional Advocate General (AAG) for the State of Chhattisgarh, representing the state before the Supreme Court of India and providing high-level legal counsel and representation on a wide range of matters. Prior to this role, he practised at leading law firms including Cyril Amarchand Mangaldas, where he was a partner and acted on high-stakes matters involving insolvency, debt recovery, white-collar crime and commercial disputes. Recognised among India’s top legal professionals, Mr. Dubey’s practice has spanned landmark corporate insolvency matters and multifaceted commercial litigation, with his work frequently cited in legal circles and industry rankings.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card">
+                <img src="batra.jpeg" alt="Sumant Batra" class="team-img">
+                <div class="team-info">
+                    <h3>Mr. Sumant Batra</h3>
+                    <p>President, Insolvency Law Academy</p>
+                    <div class="bio-source">
+                        <p>Mr. Sumant Batra is a globally acclaimed insolvency lawyer and thought leader with over three decades of experience in insolvency, bankruptcy and related legal fields.</p>
+                        <p>He is widely recognised for shaping policy, advising on legislative drafting, and contributing to the development of insolvency jurisprudence both in India and internationally.</p>
+                        <p>He holds the distinction of being the only Indian International Fellow of the American College of Bankruptcy and served as the youngest President of INSOL International, where he played a pivotal role in global benchmarking and standard-setting in insolvency practice.</p>
+                        <p>Mr. Batra has also worked as a senior consultant with major international institutions including the International Monetary Fund, the World Bank Group, the OECD and the Asian Development Bank. An accomplished author, his book Corporate Insolvency – Law & Practice is considered a leading scholarly work on insolvency law. He is the founder of the Insolvency Law Academy and serves on advisory boards of prominent legal institutions, bringing deep intellectual rigour and practical insight to insolvency law and education.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header-glass">
+            <h2>Academic Coordination Committee</h2>
+        </div>
+
+        <div class="team-grid">
+            
+            <div class="glass-team-card" data-role="Chair">
+                <img src="batra.jpeg" alt="Sumant Batra" class="team-img">
+                <div class="team-info">
+                    <span class="role-badge">Chair</span>
+                    <h3>Mr. Sumant Batra</h3>
+                    <p>Insolvency Law Academy</p>
+                    <div class="bio-source">
+                        <p>Mr. Sumant Batra is a globally acclaimed insolvency lawyer and thought leader with over three decades of experience in insolvency, bankruptcy and related legal fields.</p>
+                        <p>He is widely recognised for shaping policy, advising on legislative drafting, and contributing to the development of insolvency jurisprudence both in India and internationally.</p>
+                        <p>He holds the distinction of being the only Indian International Fellow of the American College of Bankruptcy and served as the youngest President of INSOL International, where he played a pivotal role in global benchmarking and standard-setting in insolvency practice.</p>
+                        <p>Mr. Batra has also worked as a senior consultant with major international institutions including the International Monetary Fund, the World Bank Group, the OECD and the Asian Development Bank. An accomplished author, his book Corporate Insolvency – Law & Practice is considered a leading scholarly work on insolvency law. He is the founder of the Insolvency Law Academy and serves on advisory boards of prominent legal institutions, bringing deep intellectual rigour and practical insight to insolvency law and education.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="glass-team-card" data-role="Member Secretary">
+                <img src="pandey.jpeg" alt="Raghav Pandey" class="team-img">
+                <div class="team-info">
+                    <span class="role-badge">Member Secretary</span>
+                    <h3>Dr. Raghav Pandey</h3>
+                    <p>Course Director, PGIP</p>
+                    <div class="bio-source">
+                        <p>Dr. Raghav Pandey is an Assistant Professor of Law at National Law University, Delhi, specialising in insolvency law, corporate restructuring and regulatory frameworks.</p>
+                        <p>He holds a Ph.D. in Insolvency Law from the Indian Institute of Technology (IIT) Bombay, an LL.M. from the Indian Law Institute, New Delhi, and an M.A. (Law) from the Tata Institute of Social Sciences.</p>
+                        <p>Before joining NLUD, he taught at Maharashtra National Law University, Mumbai, and has also served as visiting faculty at the Indian Institute of Information Technology, Pune.</p>
+                        <p>Dr. Pandey is the author of The Law of Corporate Insolvency in India: Resolution and Liquidation (Thomson Reuters, 2021) and has published in peer-reviewed journals on topics spanning insolvency, feminist jurisprudence and criminal law. He brings interdisciplinary insight into legal doctrine and policy, enriching both teaching and research. At NLUD, he plays an active role in shaping postgraduate learning and research, including contributions to centres such as the Centre for Regulatory Studies and Centre for Transnational Commercial Law.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card">
+                <img src="kiryabwire.jpg" alt="Winifred Kiryabwire" class="team-img">
+                <div class="team-info">
+                    <h3>Prof. W. Kiryabwire</h3>
+                    <p>Makerere University, Uganda</p>
+                    <div class="bio-source">
+                        <p>Prof. Winifred Mary Tarinyeba Kiryabwire is a distinguished Ugandan lawyer, academic and corporate leader with extensive experience in law, governance and business.</p>
+                        <p>She is an Associate Professor of Law at Makerere University School of Law, where she has taught courses in public and comparative law, including the law of business associations, and contributed significantly to legal education and research in East Africa.</p>
+                        <p>She holds a Bachelor of Laws from Makerere University, a Master of Laws from the University of Cambridge, and both a Master of Science of Law and a Doctor of Science of Law from Stanford University, reflecting deep academic grounding in international legal scholarship. In addition to her academic roles, Prof. Kiryabwire serves as Chairperson of DFCU Bank, one of Uganda’s leading commercial banks, and has held leadership positions on advisory and governance boards, including the International Ethics Standards Board for Accountants (IESBA). Her work bridges legal education, corporate governance and regulatory practice with global engagement.</p>
+                    </div>
+                </div>
+            </div>
+            
+             <div class="glass-team-card">
+                <img src="parry.jpeg" alt="Rebecca Parry" class="team-img">
+                <div class="team-info">
+                    <h3>Prof. Rebecca Parry</h3>
+                    <p>Nottingham Trent University, UK</p>
+                    <div class="bio-source">
+                        <p>Prof. Rebecca Parry is a leading international scholar in insolvency law and comparative commercial law, serving as a Professor of Law at Nottingham Law School, Nottingham Trent University (UK).</p>
+                        <p>Her research spans international and comparative insolvency regimes, corporate rescue frameworks and the intersection of commercial law with emerging technologies.</p>
+                        <p>She is recognised for her work on cross-jurisdictional bankruptcy principles, digital economy implications and corporate governance issues within insolvency practice.</p>
+                        <p>Prof. Parry teaches advanced modules including Corporate Insolvency, Artificial Intelligence: Legal Aspects and Cyber Law, and supervises PhD research and undergraduate legal projects.</p>
+                        <p>She is Co-Director of the Centre for Law, Emerging Technologies and Business (C-LEB) and leads research initiatives mapping legal approaches to corporate failure across jurisdictions. Her work reflects deep comparative insight into UK, US, EU, Indian and Chinese insolvency laws. An active contributor to global insolvency discourse, Prof. Parry is a member of the Standing Task Force on Insolvency Law in Emerging Markets and Developing Economies and chairs international roundtables on personal insolvency. Her publications and collaborations inform policy and academic debates worldwide.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card">
+                <img src="shikha.jpeg" alt="Neeti Shikha" class="team-img">
+                <div class="team-info">
+                    <h3>Dr. Neeti Shikha</h3>
+                    <p>Associate Dean, JGBS</p>
+                    <div class="bio-source">
+                        <p>Dr. Neeti Shikha is an international legal scholar specialising in insolvency law, corporate governance and financial regulation.</p>
+                        <p>She holds a Ph.D. in Corporate Governance from National Law University, Jodhpur, an LL.M. in International Business Laws from University College London (UCL), and an LL.B. with first class from Guru Gobind Singh Indraprastha University, Delhi.</p>
+                        <p>Dr. Shikha has taught and conducted research at leading institutions in India, Singapore and the UK, and is currently a Lecturer at Bristol Law School, University of the West of England, where she teaches corporate governance, company law and insolvency law.</p>
+                        <p>She has played influential roles in academia and policy, including as Founding Head of the Centre for Insolvency and Bankruptcy at the Indian Institute of Corporate Affairs (Ministry of Corporate Affairs) and as Associate Dean at the Indian School of Public Policy.</p>
+                        <p>Her research has informed policy frameworks and led to funded studies for both the Ministry of Corporate Affairs and the Insolvency and Bankruptcy Board of India. Dr. Shikha serves on the INSOL Academic Steering Committee and the editorial board of the International Insolvency Review, and contributes regularly to national media on law and policy.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card">
+                <img src="vaccari.jpg" alt="Eugenio Vaccari" class="team-img">
+                <div class="team-info">
+                    <h3>Dr. Eugenio Vaccari</h3>
+                    <p>Royal Holloway, University of London</p>
+                    <div class="bio-source">
+                        <p>Dr. Eugenio Vaccari is a respected insolvency law scholar and academic based in the United Kingdom, where he serves as Senior Lecturer in Law at Royal Holloway, University of London.</p>
+                        <p>He specialises in corporate insolvency and bankruptcy law, with a strong focus on the theoretical foundations of insolvency, abusive practices in insolvency and comparative frameworks for corporate distress.</p>
+                        <p>His work also explores the treatment of local public entities in financial distress and the broader social and regulatory dimensions of insolvency law.</p>
+                        <p>Dr. Vaccari holds a Ph.D. in Insolvency Law from City, University of London, an LL.M. in Corporate Law from the London School of Economics and Political Science, postgraduate certification in public and European law from the University of Bologna, and an LL.B. from the University of Modena and Reggio Emilia. He is actively involved in leading international research initiatives, editorial boards and insolvency networks, including roles with INSOL International, INSOL Europe and the International Insolvency Institute. Dr. Vaccari also contributes to funded projects on access to bankruptcy procedures and systemic issues in distress regimes, bringing rich comparative insight to the study and teaching of insolvency.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card">
+                <img src="garg.jpg" alt="Risham Garg" class="team-img">
+                <div class="team-info">
+                    <h3>Prof. (Dr.) Risham Garg</h3>
+                    <p>Professor of Law</p>
+                    <div class="bio-source">
+                        <p>Prof. (Dr.) Risham Garg is a distinguished legal academic and Professor of Law at National Law University, Delhi, renowned for his scholarship in international commercial law, insolvency and transnational dispute resolution.</p>
+                        <p>He holds a Doctor of Laws (LL.D.) for his research on International Commercial Law and Arbitration, and has been a core faculty member at NLU Delhi since 2009.</p>
+                        <p>He serves as Executive Director of the Centre for Transnational Commercial Law (CTCL) and as Director of the NLU Delhi Foundation, playing a pivotal role in shaping research, policy engagement and academic programmes that bridge legal theory with global commercial practice.</p>
+                        <p>His teaching portfolio includes courses on corporate insolvency and bankruptcy, regulatory practicum, private international law and emerging technologies in law.</p>
+                        <p>Prof. Garg’s research spans cross-border insolvency, creditor rights, comparative contract law and transnational legal frameworks. His work has appeared in leading journals, including the American Bankruptcy Law Journal and the INSOL International Insolvency Review. He is also frequently invited to lead workshops and speak at international institutions, reflecting his influence in both academic and policy circles.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="section-header-glass">
+            <h2>Faculty at PGIP</h2>
+        </div>
+
+        <div class="team-grid">
+            
+            <div class="glass-team-card">
+                <img src="garg.jpg" alt="Risham Garg" class="team-img">
+                <div class="team-info">
+                    <h3>Prof. (Dr.) Risham Garg</h3>
+                    <p>Professor of Law</p>
+                    <div class="bio-source">
+                        <p>Prof. (Dr.) Risham Garg is a distinguished legal academic and Professor of Law at National Law University, Delhi, renowned for his scholarship in international commercial law, insolvency and transnational dispute resolution.</p>
+                        <p>He holds a Doctor of Laws (LL.D.) for his research on International Commercial Law and Arbitration, and has been a core faculty member at NLU Delhi since 2009.</p>
+                        <p>He serves as Executive Director of the Centre for Transnational Commercial Law (CTCL) and as Director of the NLU Delhi Foundation, playing a pivotal role in shaping research, policy engagement and academic programmes that bridge legal theory with global commercial practice.</p>
+                        <p>His teaching portfolio includes courses on corporate insolvency and bankruptcy, regulatory practicum, private international law and emerging technologies in law.</p>
+                        <p>Prof. Garg’s research spans cross-border insolvency, creditor rights, comparative contract law and transnational legal frameworks. His work has appeared in leading journals, including the American Bankruptcy Law Journal and the INSOL International Insolvency Review. He is also frequently invited to lead workshops and speak at international institutions, reflecting his influence in both academic and policy circles.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card">
+                <img src="MS.jpg" alt="Maheshwar Singh" class="team-img">
+                <div class="team-info">
+                    <h3>Prof. (Dr.) Maheshwar Singh</h3>
+                    <p>Professor of Political Science</p>
+                    <div class="bio-source">
+                        <p>Prof. (Dr.) Maheshwar Singh is a distinguished academic and Professor of Political Science at National Law University, Delhi, where he has been a core faculty member since 2009. He holds a doctoral degree in Diplomacy and International Security from Jawaharlal Nehru University, New Delhi, and brings nearly two decades of teaching and research experience at the intersection of political science, law and policy.</p>
+                        <p>Prof. Singh’s areas of expertise include political theory, international relations, water law, disability law and policy, and development-induced displacement.</p>
+                        <p>His scholarship has appeared in academic fora, and he has collaborated on interdisciplinary research projects addressing legal and socio-political challenges in contemporary governance. He is also actively involved as a consultant with government and policy institutions and has been a visiting professor at several European universities, enhancing global academic engagement.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card">
+                <img src="RS.jpg" alt="Ritu Sharma" class="team-img">
+                <div class="team-info">
+                    <h3>Prof. (Dr.) Ritu Sharma</h3>
+                    <p>Professor (Sociology)</p>
+                    <div class="bio-source">
+                        <p>Prof. (Dr.) Ritu Sharma is a distinguished academic in sociology at National Law University, Delhi, where she serves as Professor (Sociology) and plays an active role in academic leadership and student engagement.</p>
+                        <p>She joined NLUD in 2009 and has since been involved in teaching and research that bridges sociological insight with legal education.</p>
+                        <p>Her areas of interest include the sociology of crime and deviance, sociology of law and research methodology, and she has presented papers at numerous national and international conferences.</p>
+                        <p>Dr. Sharma’s work contributes to deeper understanding of how social structures and cultural norms intersect with legal systems, enriching the interdisciplinary pedagogy at NLUD. In addition to her academic pursuits, Prof. Sharma has collaborated with national and international organisations on research projects and has been involved in human rights and community engagement initiatives. Her dedication to sociological perspectives enhances students’ critical analysis of law within broader social contexts.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card">
+                <img src="Pandey.jpeg" alt="Raghav Pandey" class="team-img">
+                <div class="team-info">
+                    <h3>Dr. Raghav Pandey</h3>
+                    <p>Assistant Professor</p>
+                    <div class="bio-source">
+                        <p>Dr. Raghav Pandey is an Assistant Professor of Law at National Law University, Delhi, specialising in insolvency law, corporate restructuring and regulatory frameworks.</p>
+                        <p>He holds a Ph.D. in Insolvency Law from the Indian Institute of Technology (IIT) Bombay, an LL.M. from the Indian Law Institute, New Delhi, and an M.A. (Law) from the Tata Institute of Social Sciences.</p>
+                        <p>Before joining NLUD, he taught at Maharashtra National Law University, Mumbai, and has also served as visiting faculty at the Indian Institute of Information Technology, Pune.</p>
+                        <p>Dr. Pandey is the author of The Law of Corporate Insolvency in India: Resolution and Liquidation (Thomson Reuters, 2021) and has published in peer-reviewed journals on topics spanning insolvency, feminist jurisprudence and criminal law. He brings interdisciplinary insight into legal doctrine and policy, enriching both teaching and research. At NLUD, he plays an active role in shaping postgraduate learning and research, including contributions to centres such as the Centre for Regulatory Studies and Centre for Transnational Commercial Law.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card">
+                <img src="dinesh.jpg" alt="Dr. Dinesh" class="team-img">
+                <div class="team-info">
+                    <h3>Dr. Dinesh</h3>
+                    <p>Assistant Professor</p>
+                    <div class="bio-source">
+                        <p>Dr. Dinesh is an Assistant Professor of Law at National Law University, Delhi, where he teaches and researches in public law, constitutional law and comparative legal frameworks.</p>
+                        <p>He earned his Ph.D. from the University of Delhi, focusing on the reform of administrative adjudicatory bodies and aligning their processes with constitutional and common law principles.</p>
+                        <p>His academic journey also includes an LL.M. from NLU Delhi with a specialisation in Public Law and a B.A.LL.B. from Guru Gobind Singh Indraprastha University.</p>
+                        <p>Before joining NLUD’s faculty, Dr. Dinesh practised in various courts and tribunals, including the Supreme Court of India, and served as a judicial clerk at the Delhi High Court, grounding his teaching in both doctrinal insight and courtroom experience. He has presented papers at national and international conferences and his research interests span constitutional law, administrative law, procedural justice and comparative law. At NLUD, Dr. Dinesh actively contributes to legal scholarship and academic initiatives, collaborating across centres and committees to enrich interdisciplinary engagement and legal education.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card">
+                <img src="MP.jpg" alt="Meenakshi Parida" class="team-img">
+                <div class="team-info">
+                    <h3>Dr. Meenakshi Parida</h3>
+                    <p>Assistant Professor (Economics)</p>
+                    <div class="bio-source">
+                        <p>Dr. Meenakshi Parida is an Assistant Professor of Economics at National Law University, Delhi, where she contributes to interdisciplinary teaching and research that bridges economic analysis with legal policy.</p>
+                        <p>She joined NLUD in 2023, bringing a strong foundation in quantitative research and applied economic thinking to legal education.</p>
+                        <p>She completed her Ph.D. in Economics at the Institute for Social and Economic Change (ISEC), Bengaluru, under the University of Mysore, and has experience in both academic and research roles across economics and policy domains.</p>
+                        <p>Prior to NLUD, she served as Assistant Professor of Economics at Dr. B.R. Ambedkar School of Economics, Bengaluru. Her research interests include productivity and efficiency analysis, energy economics, competition economics, public policy, and climate change and climate action. Dr. Parida’s work reflects her commitment to empirical and policy-relevant scholarship, enriching the analytical rigour of postgraduate programmes and contributing to research initiatives at the intersection of economics and law at NLUD.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card">
+                <img src="AY.jpg" alt="Abha Yadav" class="team-img">
+                <div class="team-info">
+                    <h3>Dr. Abha Yadav</h3>
+                    <p>Assistant Professor</p>
+                    <div class="bio-source">
+                        <p>Dr. Abha Yadav is an Assistant Professor of Law at National Law University, Delhi, where she teaches courses such as Regulatory Governance and Architecture, Competition Law, Law and Public Policy, Freedom of Information, Labour Laws and related subjects, bringing strong interdisciplinary insight into regulatory frameworks and legal analysis.</p>
+                        <p>She holds a Ph.D. from the Centre for Law and Governance, Jawaharlal Nehru University, and her doctoral studies were further enriched by the prestigious Fox International Fellowship at Yale University, USA.</p>
+                        <p>Before joining NLUD, Dr. Yadav served as Associate Professor and Head of the School of Competition Law & Market Research at the Indian Institute of Corporate Affairs (IICA), Ministry of Corporate Affairs, where she led research, policy dialogue and capacity-building initiatives for regulators and policymakers.</p>
+                        <p>She also directed the Forum of Indian Regulators (FOIR) Centre, curated flagship courses on regulatory governance, and edited the Regulatory Digest. Dr. Yadav’s work reflects her commitment to understanding institutional dynamics at the intersection of law, markets and governance. She has presented at national and international conferences, engaged in public discourse on regulation and competition, and is actively involved in academic and student mentoring at NLUD.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card">
+                <img src="AM.png" alt="Abhishek Malhotra" class="team-img">
+                <div class="team-info">
+                    <h3>Dr. Abhishek Malhotra</h3>
+                    <p>Assistant Professor of Economics, University of Delhi</p>
+                    <div class="bio-source">
+                        <p>Dr. Abhishek Malhotra is an Assistant Professor of Economics at University of Delhi, where he specialises in urban economics, public finance and the Indian economy, bringing a strong research-oriented and policy-relevant perspective to economic teaching.</p>
+                        <p>He completed his M.A. in Economics from the University of Hyderabad and his B.A. (Hons) Economics from the University of Delhi.</p>
+                        <p>His doctoral research focuses on Tax Increment Financing of Sustainable and Inclusive Metropolitan Development, reflecting his commitment to analysing public policy mechanisms for urban growth and fiscal sustainability.</p>
+                        <p>Dr. Malhotra’s academic work examines how economic tools can support equitable metropolitan development and efficient resource allocation. His research has contributed to scholarly discussions on infrastructure financing and urban economic models. Prior to his current role, he has engaged with academic and policy forums, including think-tank collaborations, and continues to mentor students in quantitative and theoretical economics, fostering critical understanding of economic frameworks relevant to public policy and governance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-team-card">
+                <img src="NS.jpeg" alt="Neel Sodhi" class="team-img">
+                <div class="team-info">
+                    <h3>Mrs. Neel Sodhi</h3>
+                    <p>Business Consultant | Counsellor</p>
+                    <div class="bio-source">
+                        <p>Ms. Neel Sodhi is a Business Consultant, Educationist and Counsellor with extensive experience across project management, strategy, marketing and client servicing in the service industry.</p>
+                        <p>She brings a multidisciplinary perspective to professional education, combining business acumen with a strong focus on emotional intelligence, leadership development and organisational effectiveness.</p>
+                        <p>Ms. Sodhi is also associated as Faculty at the Indian Institute of Corporate Affairs (IICA), where she contributes to professional and executive education programmes. Known for her strong communication and interpersonal skills, she regularly engages with senior management and diverse learner groups, adding significant value to postgraduate and practitioner-oriented programmes such as PGIP.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-main">
+            <div class="footer-logos">
+                <div class="footer-logo-item">
+                    <img src="logo.png" alt="Logo 1">
+                </div>
+                <div class="footer-logo-item">
+                    <img src="logo2.jpeg" alt="Logo 2">
+                </div>
+                <div class="footer-logo-item">
+                    <img src="logo3.jpeg" alt="Logo 3">
+                </div>
+            </div>
+
+            <div class="footer-contact">
+                <div class="contact-row">
+                    <span>011 - 40787555</span>
+                    <svg class="contact-icon" viewBox="0 0 24 24">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                </div>
+                <div class="contact-row">
+                    <a href="mailto:pgip.admissions@nludelhi.ac.in">pgip.admissions@nludelhi.ac.in</a>
+                    <svg class="contact-icon" viewBox="0 0 24 24">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                </div>
+                <div class="contact-row">
+                    <span>Sector 14, Dwarka, New Delhi</span>
+                    <svg class="contact-icon" viewBox="0 0 24 24">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; padding: 20px; border-top: 1px solid rgba(122, 28, 34, 0.1); font-size: 0.75rem; letter-spacing: 1px; color: var(--text-muted);">
+            © 2026 National Law University Delhi. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('hamburger-btn').addEventListener('click', () => {
+            document.getElementById('main-nav').classList.toggle('active');
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // --- 1. OBSERVER FOR ANIMATIONS & COUNTDOWN ---
+            const allCards = document.querySelectorAll(".executive-summary-card, .glass-team-card, .section-header-glass, .nirf-card");
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add("visible");
+                            
+                            // RESTORED: Trigger Countdown Logic
+                            if(entry.target.classList.contains('nirf-card')) {
+                                startCountdown(entry.target);
+                            }
+                        }, index * 100); 
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            allCards.forEach(card => observer.observe(card));
+
+            // --- 2. POPUP MODAL LOGIC (UNTOUCHED) ---
+            const modalOverlay = document.getElementById('bioModal');
+            // Close Button Logic Removed
+            
+            const modalImg = document.getElementById('modalImg');
+            const modalName = document.getElementById('modalName');
+            const modalRole = document.getElementById('modalRole');
+            const modalDesc = document.getElementById('modalDesc');
+            const modalBioText = document.getElementById('modalBioText');
+
+            const teamCards = document.querySelectorAll('.glass-team-card');
+            
+            const closeModal = () => {
+                modalOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            };
+
+            // modalCloseBtn.addEventListener('click', closeModal); // REMOVED
+            
+            modalOverlay.addEventListener('click', (e) => {
+                if(e.target === modalOverlay) closeModal();
+            });
+            document.addEventListener('keydown', (e) => {
+                if(e.key === "Escape" && modalOverlay.classList.contains('active')) closeModal();
+            });
+
+            teamCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const img = card.querySelector('.team-img').src;
+                    const name = card.querySelector('h3').innerText;
+                    const desc = card.querySelector('.team-info p').innerText;
+                    const bioHTML = card.querySelector('.bio-source').innerHTML;
+                    
+                    const roleBadge = card.querySelector('.role-badge');
+                    const role = roleBadge ? roleBadge.innerText : null;
+
+                    modalImg.src = img;
+                    modalName.innerText = name;
+                    modalDesc.innerText = desc;
+                    modalBioText.innerHTML = bioHTML;
+                    
+                    if(role) {
+                        modalRole.innerText = role;
+                        modalRole.style.display = 'inline-block';
+                    } else {
+                        modalRole.style.display = 'none';
+                    }
+
+                    modalOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+
+            // --- 3. COUNTDOWN LOGIC RESTORED (EXACT ORIGINAL LOGIC) ---
+            function startCountdown(container) {
+                const stat = container.querySelector('.stat-number');
+                if(!stat) return;
+
+                const start = parseInt(stat.getAttribute('data-start'));
+                const end = parseInt(stat.getAttribute('data-end'));
+                let count = start;
+                
+                // YOUR ORIGINAL LOGIC
+                const dec = (start - end) / 25; 
+
+                const updateCount = () => {
+                    count -= dec;
+                    if (count > end) {
+                        stat.innerText = Math.ceil(count);
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        stat.innerText = end;
+                    }
+                };
+                updateCount();
+            }
+        });
+
+        // --- 4. SPOTLIGHT GRADIENT LOGIC ---
+        const teamGrids = document.querySelectorAll(".team-grid");
+        teamGrids.forEach(grid => {
+            grid.onmousemove = e => {
+                const cards = grid.getElementsByClassName("glass-team-card");
+                for(const card of cards) {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty("--mouse-x", `${x}px`);
+                    card.style.setProperty("--mouse-y", `${y}px`);
+                };
+            };
+        });
+    </script>
+
+</body>
+</html>
