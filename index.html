@@ -126,7 +126,8 @@
 
         .login-btn-pro {
             display: flex; align-items: center; gap: 8px;
-            font-weight: 700; font-size: 0.75rem;
+            font-weight: 700;
+            font-size: 0.75rem;
             color: var(--primary-color);
             background: rgba(122, 28, 34, 0.05);
             border: 1px solid rgba(122, 28, 34, 0.2);
@@ -177,13 +178,13 @@
         }
 
         /* TIMING CALCULATION (32.5s Total):
-           Interval per slide: 20% (6.5s).
-           Fade duration: ~3% (approx 1s).
-           
-           Sequence:
-           0% -> 3%: Fade In
-           3% -> 20%: Fully Visible (Hold)
-           20% -> 23%: Fade Out (Overlapping next slide fade-in)
+            Interval per slide: 20% (6.5s).
+            Fade duration: ~3% (approx 1s).
+            
+            Sequence:
+            0% -> 3%: Fade In
+            3% -> 20%: Fully Visible (Hold)
+            20% -> 23%: Fade Out (Overlapping next slide fade-in)
         */
         @keyframes slideShow { 
             0% { opacity: 0; transform: scale(1); } 
@@ -404,13 +405,13 @@
         }
 
         .card-img-glass { 
-            width: 100%;                   
-            height: 250px;                 
+            width: 100%;                    
+            height: 250px;                  
             background-size: cover;        
-            background-position: center;   
+            background-position: center;    
             background-repeat: no-repeat; 
             position: relative; 
-            flex-shrink: 0;                 
+            flex-shrink: 0;                  
         }
         
         .card-content-glass { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
@@ -478,39 +479,129 @@
             .mobile-actions { display: block; margin-top: 20px; }
             .mobile-actions .login-btn-pro { justify-content: center; }
 
-            .hero h1 { font-size: 2.5rem; }
-            .hero-content { width: 100%; padding: 20px; gap: 15px; }
+            /* ========================================= */
+            /* === UPDATED MOBILE HERO (FIXED HEIGHT) === */
+            /* ========================================= */
+            .hero {
+                /* VITAL FIX: Reduce height so landscape images don't zoom in */
+                height: 55vh; 
+                min-height: 400px;
+                background: #000;
+                padding: 0;
+            }
+
+            .hero-slide {
+                background-size: cover !important;
+                background-repeat: no-repeat;
+                background-position: top center !important; 
+            }
             
-            /* --- UPDATED MOBILE ADMISSIONS PILL (FIXED) --- */
+            /* Gradient for text readability */
+            .hero-overlay {
+                background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.9) 100%);
+            }
+
+            .hero-content { 
+                width: 100%; 
+                height: 100%;
+                padding: 20px; 
+                gap: 12px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end; /* Text at bottom */
+                padding-bottom: 40px;
+            }
+
+            .hero h1 { 
+                font-size: 1.6rem; /* Smaller text */
+                margin-bottom: 0; 
+                line-height: 1.2;
+                text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            } 
+            
+            .hero p { 
+                font-size: 0.8rem; /* Smaller text */
+                max-width: 100%; 
+                line-height: 1.4;
+                text-shadow: 0 1px 5px rgba(0,0,0,0.8);
+                padding: 0 5px;
+            } 
+            
+            /* --- ADMISSIONS PILL (FIXED) --- */
             .admissions-pill { 
-                flex-direction: row; /* Force side-by-side */
-                padding: 4px 4px 4px 15px; /* Match desktop tight padding */
+                flex-direction: row; 
+                padding: 4px 4px 4px 15px; 
                 gap: 8px;
                 border-radius: 30px; 
-                width: fit-content; /* Don't stretch */
-                margin: 15px auto 0; /* Center it */
+                width: fit-content; 
+                margin: 5px auto 0; 
             }
             .admissions-text { 
-                font-size: 0.65rem; /* readable but compact */
+                font-size: 0.6rem; 
                 margin-bottom: 0; 
                 margin-right: 0; 
                 white-space: nowrap;
+                color: var(--text-main); 
             }
             .apply-btn-hero { 
                 width: auto; 
-                padding: 6px 15px;
-                font-size: 0.65rem;
+                padding: 5px 15px;
+                font-size: 0.6rem;
                 text-align: center; 
             }
             
-            /* HERO SOCIALS MOBILE */
-            .hero-socials { margin-top: 20px; gap: 25px; }
-            .social-icon-hero svg { width: 20px; height: 20px; }
+            .hero-socials { margin-top: 10px; gap: 15px; }
+            .social-icon-hero svg { width: 18px; height: 18px; }
 
-            .glass-container-3d, .glass-container-3d.reverse { flex-direction: column; height: auto; margin-bottom: 40px; }
-            .photo-card-3d { width: 100%; height: 300px; transform: none !important; margin-bottom: -40px; z-index: 1; }
-            .text-glass-card { width: 90%; margin: 0 auto; margin-left: auto; margin-right: auto; }
+
+            /* ==================================================== */
+            /* === VC / DIRECTOR MESSAGE SECTION (Mobile) === */
+            /* ==================================================== */
             
+            .glass-container-3d, .glass-container-3d.reverse { 
+                flex-direction: column; 
+                height: auto; 
+                margin-bottom: 40px;
+                display: flex;
+            }
+
+            .photo-card-3d { 
+                width: 100%; 
+                height: 380px; 
+                transform: none !important; 
+                margin-bottom: 0; 
+                z-index: 1;
+                border-radius: 20px 20px 0 0; 
+            }
+
+            .photo-img {
+                object-position: top center;
+            }
+
+            .text-glass-card { 
+                width: 100%; 
+                margin: 0; 
+                background: #fff; 
+                border-radius: 0 0 20px 20px; 
+                padding: 40px 25px; 
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+                height: auto; 
+            }
+
+            .quote-block-3d h2 {
+                font-size: 1.6rem; 
+                line-height: 1.3; 
+                margin-bottom: 1.5rem;
+                white-space: normal; 
+            }
+
+            .message-body p {
+                text-align: left !important;
+                font-size: 1rem;
+            }
+
+            /* ==================================================== */
+
             .footer-main { flex-direction: column; gap: 30px; text-align: center; }
             .footer-logos { justify-content: center; }
             .footer-contact { align-items: center; }
@@ -572,7 +663,7 @@
                 <div class="hero-slide" style="background-image: url('vc.JPG');"></div>
                 <div class="hero-slide" style="background-image: url('201.JPEG');"></div>
                 <div class="hero-slide" style="background-image: url('101.JPEG');"></div>
-              
+               
             </div>
 
             <div class="hero-overlay"></div>
@@ -663,114 +754,6 @@
             <div class="slider-viewport reveal-on-scroll">
                 <div class="slider-track" id="slider-track">
                     
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('icc.JPG');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">ICC</span>
-                            <h3>Internship Coordination Committee</h3>
-                            <p>The Internship Coordination Committee acts as the vital bridge between students and top-tier firms. It manages structured recruitment drives, ensuring every scholar secures a placement that aligns with their professional aspirations and academic strengths.</p>
-                        </div>
-                    </article>
-
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('5.jpeg');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Podcast</span>
-                            <h3>The Haircut Files</h3>
-                            <p>The Haircut Files is a pioneering student-led initiative that bridges complex legal judgments with living history. By unpacking the human and commercial realities behind major insolvency verdicts, this series brings dry courtroom logic to vibrant life.</p>
-                        </div>
-                    </article>
-
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('spandana.jpeg');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Students</span>
-                            <h3>Future Insolvency Professionals</h3>
-                            <p>The PGIP cohort represents the future leadership of India’s insolvency landscape. Rigorously trained in legal, financial, and policy frameworks, these professionals are uniquely equipped to navigate and resolve the most complex commercial distress.</p>
-                        </div>
-                    </article>
-                    
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('1011.JPG');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Immersion</span>
-                            <h3>Experiential Learning Field Visits</h3>
-                            <p>Experiential learning is central to the PGIP pedagogy. Through structured industrial immersions and field visits, scholars move beyond the classroom to observe real-world operational challenges, fostering deep contextual understanding and practical insight.</p>
-                        </div>
-                    </article>
-
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('1022.jpg');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Community</span>
-                            <h3>Student Achievements and Sports</h3>
-                            <p>Life at PGIP extends beyond academics, emphasizing resilience, leadership, and teamwork through sports. Active participation in co-curricular events builds character and strengthens the community, ensuring a holistic developmental experience.</p>
-                        </div>
-                    </article>
-
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('1033.jpeg');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Engagement</span>
-                            <h3>IBBI Annual Day Engagement</h3>
-                            <p>Scholars engage directly with the regulatory heartbeat of India through exclusive forums like the IBBI Annual Day. This exposure offers a front-row seat to high-level policy discourse, connecting students with the architects of the insolvency ecosystem.</p>
-                        </div>
-                    </article>
-
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('icc.JPG');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">ICC</span>
-                            <h3>Internship Coordination Committee</h3>
-                            <p>The Internship Coordination Committee acts as the vital bridge between students and top-tier firms. It manages structured recruitment drives, ensuring every scholar secures a placement that aligns with their professional aspirations and academic strengths.</p>
-                        </div>
-                    </article>
-
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('5.jpeg');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Podcast</span>
-                            <h3>The Haircut Files</h3>
-                            <p>The Haircut Files is a pioneering student-led initiative that bridges complex legal judgments with living history. By unpacking the human and commercial realities behind major insolvency verdicts, this series brings dry courtroom logic to vibrant life.</p>
-                        </div>
-                    </article>
-
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('spandana.jpeg');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Students</span>
-                            <h3>Future Insolvency Professionals</h3>
-                            <p>The PGIP cohort represents the future leadership of India’s insolvency landscape. Rigorously trained in legal, financial, and policy frameworks, these professionals are uniquely equipped to navigate and resolve the most complex commercial distress.</p>
-                        </div>
-                    </article>
-                    
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('1011.JPG');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Immersion</span>
-                            <h3>Experiential Learning Field Visits</h3>
-                            <p>Experiential learning is central to the PGIP pedagogy. Through structured industrial immersions and field visits, scholars move beyond the classroom to observe real-world operational challenges, fostering deep contextual understanding and practical insight.</p>
-                        </div>
-                    </article>
-
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('1022.jpg');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Community</span>
-                            <h3>Student Achievements and Sports</h3>
-                            <p>Life at PGIP extends beyond academics, emphasizing resilience, leadership, and teamwork through sports. Active participation in co-curricular events builds character and strengthens the community, ensuring a holistic developmental experience.</p>
-                        </div>
-                    </article>
-
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('1033.jpeg');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Engagement</span>
-                            <h3>IBBI Annual Day Engagement</h3>
-                            <p>Scholars engage directly with the regulatory heartbeat of India through exclusive forums like the IBBI Annual Day. This exposure offers a front-row seat to high-level policy discourse, connecting students with the architects of the insolvency ecosystem.</p>
-                        </div>
-                    </article>
-
                     <article class="glass-card-item">
                         <div class="card-img-glass" style="background-image: url('icc.JPG');"></div>
                         <div class="card-content-glass">
