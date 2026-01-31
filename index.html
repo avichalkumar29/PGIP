@@ -520,7 +520,12 @@
                 background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.9) 100%);
             }
 
-            /* RESTORED: Original mobile padding so text sits low and doesn't block faces */
+            /* REMOVED MOBILE WATERMARK */
+            .hero-watermark {
+                display: none;
+            }
+
+            /* RESTORED ORIGINAL MOBILE LAYOUT - No extra padding */
             .hero-content { 
                 width: 100%; 
                 height: 100%;
@@ -529,26 +534,7 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-end;
-                padding-bottom: 40px; 
-            }
-
-            /* FIXED WATERMARK FOR MOBILE: One line, bottom centered, non-intrusive */
-            .hero-watermark {
-                bottom: 8px; /* Very bottom */
-                right: 0;
-                left: 0;
-                width: 100%;
-                text-align: center;
-                font-size: 0.5rem;
-                line-height: 1;
-                border-left: none;
-                padding-left: 0;
-                white-space: nowrap; /* Force one line */
-            }
-            
-            /* Hides the line break on mobile to ensure one line */
-            .hero-watermark br {
-                display: none; 
+                padding-bottom: 40px; /* Original padding */
             }
 
             .hero h1 { 
