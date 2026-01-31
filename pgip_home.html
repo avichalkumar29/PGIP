@@ -180,7 +180,7 @@
             z-index: 1;
         }
 
-        /* --- WATERMARK STYLE --- */
+        /* --- WATERMARK STYLE (DESKTOP) --- */
         .hero-watermark {
             position: absolute;
             bottom: 30px;
@@ -520,8 +520,7 @@
                 background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.9) 100%);
             }
 
-            /* PROFESSIONAL MOBILE WATERMARK FIX */
-            /* 1. Make space for it in the hero container */
+            /* RESTORED: Original mobile padding so text sits low and doesn't block faces */
             .hero-content { 
                 width: 100%; 
                 height: 100%;
@@ -530,28 +529,26 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-end;
-                /* Increased padding-bottom creates a 'safe zone' for watermark at the bottom */
-                padding-bottom: 85px; 
+                padding-bottom: 40px; 
             }
 
-            /* 2. Style the watermark to look like a professional stamp */
+            /* FIXED WATERMARK FOR MOBILE: One line, bottom centered, non-intrusive */
             .hero-watermark {
-                bottom: 20px;
-                right: 20px;
-                left: auto;
-                width: auto;
-                text-align: right;
-                
-                /* Aesthetics */
-                font-size: 0.55rem;
-                line-height: 1.3;
-                font-weight: 600;
-                
-                /* Brand consistency: Restore the accent border */
-                border-left: 2px solid var(--primary-color);
-                padding-left: 10px;
-                
-                opacity: 0.8;
+                bottom: 8px; /* Very bottom */
+                right: 0;
+                left: 0;
+                width: 100%;
+                text-align: center;
+                font-size: 0.5rem;
+                line-height: 1;
+                border-left: none;
+                padding-left: 0;
+                white-space: nowrap; /* Force one line */
+            }
+            
+            /* Hides the line break on mobile to ensure one line */
+            .hero-watermark br {
+                display: none; 
             }
 
             .hero h1 { 
