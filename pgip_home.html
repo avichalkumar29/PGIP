@@ -72,6 +72,12 @@
             transform: translateY(0);
         }
 
+        /* Independent Animation for Watermark */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* --- HEADER --- */
         header {
             background: rgba(255, 255, 255, 0.9);
@@ -172,6 +178,32 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.1) 100%);
             z-index: 1;
+        }
+
+        /* --- WATERMARK STYLE --- */
+        .hero-watermark {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            z-index: 5;
+            color: rgba(255, 255, 255, 0.65);
+            font-family: var(--font-sans);
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 400;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            pointer-events: none;
+            text-align: right;
+            border-left: 2px solid var(--primary-color);
+            padding-left: 15px;
+            backdrop-filter: blur(2px);
+            
+            /* FORCE ANIMATION ON LOAD */
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation-delay: 0.2s; 
         }
 
         @keyframes slideShow { 
@@ -365,14 +397,18 @@
             display: flex; 
             gap: 40px; 
             width: max-content; 
-            animation: scroll 60s linear infinite; 
+            animation: scroll 70s linear infinite; 
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            perspective: 1000px;
         }
         
         .slider-track:hover { animation-play-state: paused; }
         
         @keyframes scroll { 
-            0% { transform: translateX(0); } 
-            100% { transform: translateX(-50%); } 
+            0% { transform: translate3d(0, 0, 0); } 
+            100% { transform: translate3d(-50%, 0, 0); } 
         }
 
         .glass-card-item {
@@ -382,6 +418,7 @@
             backdrop-filter: blur(10px); border-radius: 16px; overflow: hidden;
             display: flex; flex-direction: column; transition: 0.4s ease;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transform: translateZ(0); 
         }
 
         .glass-card-item:hover {
@@ -393,12 +430,12 @@
 
         .card-img-glass { 
             width: 100%;                    
-            height: 250px;                  
-            background-size: cover;         
-            background-position: center;    
+            height: 250px;                   
+            background-size: cover;          
+            background-position: center;     
             background-repeat: no-repeat; 
             position: relative; 
-            flex-shrink: 0;                  
+            flex-shrink: 0;                   
         }
         
         .card-content-glass { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
@@ -483,6 +520,8 @@
                 background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.9) 100%);
             }
 
+            /* PROFESSIONAL MOBILE WATERMARK FIX */
+            /* 1. Make space for it in the hero container */
             .hero-content { 
                 width: 100%; 
                 height: 100%;
@@ -491,7 +530,28 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-end;
-                padding-bottom: 40px;
+                /* Increased padding-bottom creates a 'safe zone' for watermark at the bottom */
+                padding-bottom: 85px; 
+            }
+
+            /* 2. Style the watermark to look like a professional stamp */
+            .hero-watermark {
+                bottom: 20px;
+                right: 20px;
+                left: auto;
+                width: auto;
+                text-align: right;
+                
+                /* Aesthetics */
+                font-size: 0.55rem;
+                line-height: 1.3;
+                font-weight: 600;
+                
+                /* Brand consistency: Restore the accent border */
+                border-left: 2px solid var(--primary-color);
+                padding-left: 10px;
+                
+                opacity: 0.8;
             }
 
             .hero h1 { 
@@ -535,12 +595,8 @@
             .social-icon-hero svg { width: 18px; height: 18px; }
 
             /* --- UNIFORM MOBILE SPACING FIX --- */
-            /* Hero has 40px bottom padding.
-               Each section will now have 40px top padding and 40px bottom padding.
-               The margins between sections are removed so the gap is purely 40 (bottom) + 40 (top) = 80px everywhere.
-            */
             .message-section { 
-                padding: 40px 20px 40px 20px; /* Uniform Top/Bottom */
+                padding: 40px 20px 40px 20px; 
             }
 
             /* --- OVERLAPPING "3D" CARD STYLE FOR MOBILE --- */
@@ -548,7 +604,7 @@
                 flex-direction: column; 
                 align-items: center;
                 height: auto; 
-                margin-bottom: 0; /* Removing extra margin so padding handles the gap */
+                margin-bottom: 0; 
                 display: flex;
             }
 
@@ -566,12 +622,11 @@
             /* Text Card (Top Layer - Overlapping) */
             .text-glass-card { 
                 width: 90%; 
-                margin: -60px 0 0 0; /* OVERLAP LOGIC */
+                margin: -60px 0 0 0; 
                 
-                /* LIQUID GLASS FIX: More transparency + backdrop filter */
                 background: rgba(255, 255, 255, 0.65); 
                 backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-                border: 1px solid rgba(255, 255, 255, 0.4); /* Subtle border for glass definition */
+                border: 1px solid rgba(255, 255, 255, 0.4); 
                 
                 border-radius: 20px; 
                 padding: 30px 20px; 
@@ -580,7 +635,6 @@
                 z-index: 2;
             }
 
-            /* Force uniformity for reverse container on mobile */
             .glass-container-3d.reverse .text-glass-card { 
                 margin-left: 0; 
                 margin-right: 0; 
@@ -599,7 +653,7 @@
 
             /* --- PROGRAM HIGHLIGHTS MOBILE UPDATES --- */
             .slider-section { 
-                padding: 40px 0; /* Matches spacing logic */
+                padding: 40px 0; 
                 margin-bottom: 0; 
             }
 
@@ -612,9 +666,8 @@
                 padding-bottom: 5px;
             }
 
-            /* Faster scroll on mobile */
             .slider-track {
-                animation: scroll 90s linear infinite; 
+                animation: scroll 100s linear infinite; 
             }
 
             .glass-card-item {
@@ -685,11 +738,13 @@
                 <div class="hero-slide" style="background-image: url('batch.JPG');"></div>
                 <div class="hero-slide" style="background-image: url('pm.jpeg');"></div>
                 <div class="hero-slide" style="background-image: url('vc.JPG');"></div>
-                <div class="hero-slide" style="background-image: url('batch.JPG');"></div>
+                <div class="hero-slide" style="background-image: url('DG.JPG');"></div>
                 <div class="hero-slide" style="background-image: url('rpvc.jpeg');"></div>
             </div>
 
             <div class="hero-overlay"></div>
+
+            <div class="hero-watermark">Developed and managed by the<br>Internship Coordination Committee</div>
 
             <div class="hero-content reveal-on-scroll">
                 <div class="hero-text-left">
@@ -793,11 +848,19 @@
                         </div>
                     </article>
                     <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('spandana.jpeg');"></div>
+                        <div class="card-img-glass" style="background-image: url('bhatt.jpeg');"></div>
                         <div class="card-content-glass">
-                            <span class="cat-tag">Students</span>
-                            <h3>Future Insolvency Professionals</h3>
-                            <p>The PGIP cohort represents the future leadership of India’s insolvency landscape. Rigorously trained in legal, financial, and policy frameworks, these professionals are uniquely equipped to navigate and resolve the most complex commercial distress.</p>
+                            <span class="cat-tag">ACHIEVEMENT</span>
+                            <h3>Quiz Competition</h3>
+                            <p>PGIP student receives award at the 4th Insolvency Law Academy (ILA) Conference, reflecting strong conceptual understanding and analytical ability. The recognition highlights academic rigor, competitive engagement, and subject-matter proficiency fostered through the programme.</p>
+                        </div>
+                    </article>
+                        <article class="glass-card-item">
+                        <div class="card-img-glass" style="background-image: url('201.jpeg');"></div>
+                        <div class="card-content-glass">
+                            <span class="cat-tag">Engagement</span>
+                            <h3>INSOL Conference</h3>
+                            <p>Students attend the INSOL India International Conference on Insolvency and Restructuring. Such engagements facilitate interaction with leading practitioners and policymakers, enriching practical understanding of developments in the insolvency ecosystem.</p>
                         </div>
                     </article>
                     <article class="glass-card-item">
@@ -824,7 +887,14 @@
                             <p>Scholars engage directly with the regulatory heartbeat of India through exclusive forums like the IBBI Annual Day. This exposure offers a front-row seat to high-level policy discourse, connecting students with the architects of the insolvency ecosystem.</p>
                         </div>
                     </article>
-
+    <article class="glass-card-item">
+                        <div class="card-img-glass" style="background-image: url('pranjal.jpeg');"></div>
+                        <div class="card-content-glass">
+                            <span class="cat-tag">ACHIEVEMENT</span>
+                            <h3>Conference Paper Presentation</h3>
+                            <p>PGIP student presents research paper at the 4th Insolvency Law Academy (ILA) Conference, engaging with contemporary insolvency scholarship. The presentation reflected rigorous legal research contributing to academic and practitioner discussions on evolving insolvency frameworks.</p>
+                        </div>
+                    </article>
                     <article class="glass-card-item">
                         <div class="card-img-glass" style="background-image: url('ICC.JPG');"></div>
                         <div class="card-content-glass">
@@ -842,11 +912,19 @@
                         </div>
                     </article>
                     <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('spandana.jpeg');"></div>
+                        <div class="card-img-glass" style="background-image: url('bhatt.jpeg');"></div>
                         <div class="card-content-glass">
-                            <span class="cat-tag">Students</span>
-                            <h3>Future Insolvency Professionals</h3>
-                            <p>The PGIP cohort represents the future leadership of India’s insolvency landscape. Rigorously trained in legal, financial, and policy frameworks, these professionals are uniquely equipped to navigate and resolve the most complex commercial distress.</p>
+                            <span class="cat-tag">ACHIEVEMENT</span>
+                            <h3>Quiz Competition</h3>
+                            <p>PGIP student receives award at the 4th Insolvency Law Academy (ILA) Conference, reflecting strong conceptual understanding and analytical ability. The recognition highlights academic rigor, competitive engagement, and subject-matter proficiency fostered through the programme.</p>
+                        </div>
+                    </article>
+                     <article class="glass-card-item">
+                        <div class="card-img-glass" style="background-image: url('201.jpeg');"></div>
+                        <div class="card-content-glass">
+                            <span class="cat-tag">Engagement</span>
+                            <h3>INSOL Conference</h3>
+                            <p>Students attend the INSOL India International Conference on Insolvency and Restructuring. Such engagements facilitate interaction with leading practitioners and policymakers, enriching practical understanding of developments in the insolvency ecosystem.</p>
                         </div>
                     </article>
                     <article class="glass-card-item">
@@ -873,105 +951,14 @@
                             <p>Scholars engage directly with the regulatory heartbeat of India through exclusive forums like the IBBI Annual Day. This exposure offers a front-row seat to high-level policy discourse, connecting students with the architects of the insolvency ecosystem.</p>
                         </div>
                     </article>
-
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('ICC.JPG');"></div>
+    <article class="glass-card-item">
+                        <div class="card-img-glass" style="background-image: url('pranjal.jpeg');"></div>
                         <div class="card-content-glass">
-                            <span class="cat-tag">ICC</span>
-                            <h3>Internship Coordination Committee</h3>
-                            <p>The Internship Coordination Committee acts as the vital bridge between students and top-tier firms. It manages structured recruitment drives, ensuring every scholar secures a placement that aligns with their professional aspirations and academic strengths.</p>
+                            <span class="cat-tag">ACHIEVEMENT</span>
+                            <h3>Conference Paper Presentation</h3>
+                            <p>PGIP student presents research paper at the 4th Insolvency Law Academy (ILA) Conference, engaging with contemporary insolvency scholarship. The presentation reflected rigorous legal research contributing to academic and practitioner discussions on evolving insolvency frameworks.</p>
                         </div>
                     </article>
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('5.jpeg');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Podcast</span>
-                            <h3>The Haircut Files</h3>
-                            <p>The Haircut Files is a pioneering student-led initiative that bridges complex legal judgments with living history. By unpacking the human and commercial realities behind major insolvency verdicts, this series brings dry courtroom logic to vibrant life.</p>
-                        </div>
-                    </article>
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('spandana.jpeg');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Students</span>
-                            <h3>Future Insolvency Professionals</h3>
-                            <p>The PGIP cohort represents the future leadership of India’s insolvency landscape. Rigorously trained in legal, financial, and policy frameworks, these professionals are uniquely equipped to navigate and resolve the most complex commercial distress.</p>
-                        </div>
-                    </article>
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('1011.JPG');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Immersion</span>
-                            <h3>Experiential Learning Field Visits</h3>
-                            <p>Experiential learning is central to the PGIP pedagogy. Through structured industrial immersions and field visits, scholars move beyond the classroom to observe real-world operational challenges, fostering deep contextual understanding and practical insight.</p>
-                        </div>
-                    </article>
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('1022.JPG');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Community</span>
-                            <h3>Student Achievements and Sports</h3>
-                            <p>Life at PGIP extends beyond academics, emphasizing resilience, leadership, and teamwork through sports. Active participation in co-curricular events builds character and strengthens the community, ensuring a holistic developmental experience.</p>
-                        </div>
-                    </article>
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('1033.jpeg');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Engagement</span>
-                            <h3>IBBI Annual Day Engagement</h3>
-                            <p>Scholars engage directly with the regulatory heartbeat of India through exclusive forums like the IBBI Annual Day. This exposure offers a front-row seat to high-level policy discourse, connecting students with the architects of the insolvency ecosystem.</p>
-                        </div>
-                    </article>
-
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('ICC.JPG');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">ICC</span>
-                            <h3>Internship Coordination Committee</h3>
-                            <p>The Internship Coordination Committee acts as the vital bridge between students and top-tier firms. It manages structured recruitment drives, ensuring every scholar secures a placement that aligns with their professional aspirations and academic strengths.</p>
-                        </div>
-                    </article>
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('5.jpeg');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Podcast</span>
-                            <h3>The Haircut Files</h3>
-                            <p>The Haircut Files is a pioneering student-led initiative that bridges complex legal judgments with living history. By unpacking the human and commercial realities behind major insolvency verdicts, this series brings dry courtroom logic to vibrant life.</p>
-                        </div>
-                    </article>
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('spandana.jpeg');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Students</span>
-                            <h3>Future Insolvency Professionals</h3>
-                            <p>The PGIP cohort represents the future leadership of India’s insolvency landscape. Rigorously trained in legal, financial, and policy frameworks, these professionals are uniquely equipped to navigate and resolve the most complex commercial distress.</p>
-                        </div>
-                    </article>
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('1011.JPG');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Immersion</span>
-                            <h3>Experiential Learning Field Visits</h3>
-                            <p>Experiential learning is central to the PGIP pedagogy. Through structured industrial immersions and field visits, scholars move beyond the classroom to observe real-world operational challenges, fostering deep contextual understanding and practical insight.</p>
-                        </div>
-                    </article>
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('1022.JPG');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Community</span>
-                            <h3>Student Achievements and Sports</h3>
-                            <p>Life at PGIP extends beyond academics, emphasizing resilience, leadership, and teamwork through sports. Active participation in co-curricular events builds character and strengthens the community, ensuring a holistic developmental experience.</p>
-                        </div>
-                    </article>
-                    <article class="glass-card-item">
-                        <div class="card-img-glass" style="background-image: url('1033.jpeg');"></div>
-                        <div class="card-content-glass">
-                            <span class="cat-tag">Engagement</span>
-                            <h3>IBBI Annual Day Engagement</h3>
-                            <p>Scholars engage directly with the regulatory heartbeat of India through exclusive forums like the IBBI Annual Day. This exposure offers a front-row seat to high-level policy discourse, connecting students with the architects of the insolvency ecosystem.</p>
-                        </div>
-                    </article>
-
                 </div>
             </div>
         </section>
